@@ -69,16 +69,16 @@ $dark  = $track === 'cinematic';
             </p>
         </div>
 
-        <div class="tw-mt-6">
-            <?= component('devnote', [
-                'onDark' => $dark,
-                'text'   => 'The marketplace, basket, checkout and the seller and delivery dashboards run on '
-                          . 'the database: accounts, baskets, orders, stock and deliveries here are real and are '
-                          . 'stored. No payment provider is connected - a card or mobile-money payment is settled '
-                          . 'by a clearly labelled sandbox driver, and nothing is charged. Cash is real, and is '
-                          . 'recorded when it changes hands. Support requests, notifications and reorder '
-                          . 'are real too. Only the admin dashboard still shows sample data.',
-            ]) ?>
-        </div>
+        <?php /* The build note that used to sit here has been removed: it repeated
+                 the same paragraph on every page of the site, which is where a
+                 standing notice stops being read.
+
+                 It is NOT gone from the places it matters. "No payment provider
+                 is connected and nothing is charged" is stated on the payment
+                 step and again on the order confirmation, at the moment somebody
+                 is actually deciding to pay; and every screen still on sample
+                 data carries its own banner saying so. Those are the disclosures
+                 that have to stay, and they are nearer the decision than a
+                 footer ever was. */ ?>
     </div>
 </footer>
