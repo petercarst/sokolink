@@ -24,51 +24,69 @@
   --c-primary:          #000000;
   --c-on-primary:       #ffffff;
 
-  /* ---- Canvases -------------------------------------------------------- */
+  /* ---- Canvases --------------------------------------------------------
+     The cream is a WARM off-white rather than the previous cool #fbfbf5.
+     Everything on the light track sits on it, so it is the single value that
+     decides whether the whole site reads as clinical or as paper. Cards stay
+     pure white so they lift off it without needing a shadow to do the work. */
   --c-canvas-night:     #000000;
-  --c-canvas-night-el:  #0a0a0a;
-  --c-surface-dark-el:  #1e2c31;
+  --c-canvas-night-el:  #111111;
+  --c-surface-dark-el:  #1c1c1c;
   --c-canvas-light:     #ffffff;
-  --c-canvas-cream:     #fbfbf5;
+  --c-canvas-cream:     #f4f2ef;
 
-  /* ---- Accents - LIGHT TRACK ONLY -------------------------------------- */
-  --c-aloe-10:          #c1fbd4;
-  --c-pistachio-10:     #d4f9e0;
+  /* ---- Accents - LIGHT TRACK ONLY --------------------------------------
+     Warm neutrals, not colour. The palette is monochrome by intent: an accent
+     here marks a surface as different, it does not shout. Anything that needs
+     to shout is a status badge, which has its own ladder below. */
+  --c-aloe-10:          #ece3d4;
+  --c-pistachio-10:     #f1eee8;
 
-  /* ---- Shade ladder ---------------------------------------------------- */
-  --c-shade-30:         #d4d4d8;
-  --c-shade-40:         #a1a1aa;
-  --c-shade-50:         #71717a;
-  --c-shade-60:         #52525b;
-  --c-shade-70:         #3f3f46;
+  /* ---- Shade ladder ----------------------------------------------------
+     Warm greys. The previous ladder was zinc, which is faintly blue and
+     fought the cream. Every step keeps its old contrast role.
 
-  /* ---- Hairlines ------------------------------------------------------- */
-  --c-hairline-light:   #e4e4e7;
-  --c-hairline-dark:    #1e2c31;
+     shade-50 is the muted BODY text role, so it is set for headroom rather
+     than to the minimum: 5.0:1 on the cream and 5.6:1 on white. The first
+     value that merely passed was 4.53:1, which leaves nothing for a future
+     canvas tweak to spend. */
+  --c-shade-30:         #dedad3;
+  --c-shade-40:         #a8a49c;
+  --c-shade-50:         #6b675f;
+  --c-shade-60:         #524f4a;
+  --c-shade-70:         #373531;
+
+  /* ---- Hairlines -------------------------------------------------------
+     A hairline should be felt, not seen. These are one step from the canvas. */
+  --c-hairline-light:   #e3ded6;
+  --c-hairline-dark:    #202020;
 
   /* ---- Muted links on dark --------------------------------------------- */
-  --c-link-cool-1:      #9dabad;
-  --c-link-cool-2:      #9797a2;
-  --c-link-cool-3:      #bdbdca;
-  --c-link-mint:        #99b3ad;
+  --c-link-cool-1:      #a8a49c;
+  --c-link-cool-2:      #9b9790;
+  --c-link-cool-3:      #c4c0b8;
+  --c-link-mint:        #a8a49c;
 
   /* ---- DS-EXT-01: semantic status palette ------------------------------
      A deliberate extension. The reference has no status colours and forbids a
      third canvas, but a marketplace must distinguish "delivered" from
-     "rejected". Success and info reuse the existing mints - only amber and red
-     are new, both desaturated to sit beside them. Every pairing below is at
-     least 4.5:1. Status badges only: never a canvas, never on the dark track.
+     "rejected". All five are heavily desaturated so they read as tinted paper
+     rather than as colour, which is what lets them sit inside a monochrome
+     palette without breaking it. Hue still separates them, and every pairing
+     below is at least 4.5:1 - colour is never the only signal anyway, because
+     each badge carries a text label and a dot glyph.
+     Status badges only: never a canvas, never on the dark track.
      ------------------------------------------------------------------------ */
-  --c-status-success-bg: #c1fbd4;
-  --c-status-success-fg: #0b3d20;
-  --c-status-info-bg:    #d4f9e0;
-  --c-status-info-fg:    #10352a;
-  --c-status-warn-bg:    #fdf0c4;
+  --c-status-success-bg: #dde8dc;
+  --c-status-success-fg: #1f3d24;
+  --c-status-info-bg:    #e0e5e8;
+  --c-status-info-fg:    #26333c;
+  --c-status-warn-bg:    #f3e8cd;
   --c-status-warn-fg:    #4a3508;
-  --c-status-danger-bg:  #fbd5d5;
+  --c-status-danger-bg:  #f2dbd8;
   --c-status-danger-fg:  #5a1414;
-  --c-status-neutral-bg: #d4d4d8;
-  --c-status-neutral-fg: #3f3f46;
+  --c-status-neutral-bg: #e4e0d9;
+  --c-status-neutral-fg: #373531;
 
   /* ---- Type families --------------------------------------------------- */
   /* Neue Haas Grotesk Display is proprietary. The reference itself names Inter
@@ -89,21 +107,33 @@
   --s-xxl: 32px;
   --s-huge: 64px;
 
-  /* ---- Radius ---------------------------------------------------------- */
-  --r-xs:   4px;
-  --r-sm:   5px;
-  --r-md:   8px;
-  --r-lg:   12px;
-  --r-xl:   20px;
-  --r-pill: 9999px;
+  /* ---- Radius ----------------------------------------------------------
+     SQUARE. Every corner in the interface is a right angle, which is the
+     single loudest thing about this look - a rounded card in the middle of it
+     reads as a bug rather than as a variant.
+
+     The ladder is kept rather than deleted so that one value can restore the
+     old shape, and so nothing has to go hunting for hard-coded zeroes later.
+
+     --r-round is separate and stays circular. It is for things that are
+     genuinely round - an avatar, a count bubble, a carousel dot - where a
+     square would read as a different component, not as a flat corner. */
+  --r-xs:    0;
+  --r-sm:    0;
+  --r-md:    0;
+  --r-lg:    0;
+  --r-xl:    0;
+  --r-pill:  0;
+  --r-round: 9999px;
 
   /* ---- Elevation ------------------------------------------------------- */
   /* 1 and 2 are dark-track only; 3 and 4 are light-track only. */
   --e-1: 0 1px 2px rgba(255,255,255,.05), inset 0 1px 0 rgba(255,255,255,.04);
   --e-2: 0 0 0 1px rgba(255,255,255,.08), 0 1px 3px rgba(0,0,0,.3), 0 5px 10px rgba(0,0,0,.2);
-  --e-3: 0 8px 8px rgba(0,0,0,.1), 0 4px 4px rgba(0,0,0,.1),
-         0 2px 2px rgba(0,0,0,.1), 0 0 0 1px rgba(0,0,0,.1);
-  --e-4: 0 25px 50px -12px rgba(0,0,0,.25);
+  /* Softer and wider than before. On a warm canvas a tight dark shadow reads
+     as dirt; a wide faint one reads as air between the card and the page. */
+  --e-3: 0 1px 2px rgba(31,28,24,.04), 0 10px 30px rgba(31,28,24,.07);
+  --e-4: 0 24px 60px rgba(31,28,24,.12);
 
   /* ---- Layout ---------------------------------------------------------- */
   --container-wide:   1600px;
@@ -204,49 +234,85 @@ body {
   margin: 0;
 }
 
-.t-display-xxl { font-size: 96px; line-height: 1.0;  letter-spacing: 2.4px; }
-.t-display-xl  { font-size: 70px; line-height: 1.0;  letter-spacing: 0; }
-.t-display-lg  { font-size: 55px; line-height: 1.16; letter-spacing: 0; }
-.t-display-md  { font-size: 48px; line-height: 1.14; letter-spacing: 0; }
+/* Display sits in sentence case and is LOOSE. The tracking is what makes a
+   thin cut at 96px read as considered rather than as a font that failed to
+   load - the letters need room to be seen individually. It is deliberately
+   NOT uppercased: these are page titles, and an order reference or a customer
+   name shouted in caps reads as an error message. */
+.t-display-xxl { font-size: 96px; line-height: 1.04; letter-spacing: 3.8px; }
+.t-display-xl  { font-size: 70px; line-height: 1.08; letter-spacing: 2.8px; }
+.t-display-lg  { font-size: 55px; line-height: 1.2;  letter-spacing: 2.2px; }
+.t-display-md  { font-size: 48px; line-height: 1.18; letter-spacing: 1.9px; }
 
 /* Below 48px the thin cut loses legibility, so weight floors at 400
-   (DESIGN_SYSTEM.md section 7). */
-.t-heading-xl { font-family: var(--f-display); font-variation-settings: "opsz" 28; font-size: 28px; font-weight: 500; line-height: 1.28; letter-spacing: .42px; margin: 0; }
-.t-heading-lg { font-family: var(--f-display); font-variation-settings: "opsz" 24; font-size: 24px; font-weight: 400; line-height: 1.14; letter-spacing: .36px; margin: 0; }
-.t-heading-md { font-family: var(--f-display); font-variation-settings: "opsz" 20; font-size: 20px; font-weight: 500; line-height: 1.4;  letter-spacing: .3px;  margin: 0; }
-.t-heading-sm { font-family: var(--f-display); font-variation-settings: "opsz" 18; font-size: 18px; font-weight: 500; line-height: 1.25; letter-spacing: .72px; margin: 0; }
+   (DESIGN_SYSTEM.md section 7).
 
-.t-body-lg     { font-size: 18px; font-weight: 550; line-height: 1.56; }
-.t-body-md     { font-size: 16px; font-weight: 420; line-height: 1.5; }
-.t-body-strong { font-size: 16px; font-weight: 550; line-height: 1.5; }
-.t-caption     { font-size: 14px; font-weight: 500; line-height: 1.49; letter-spacing: .28px; }
-.t-micro       { font-size: 13px; font-weight: 500; line-height: 1.5;  letter-spacing: -.13px; }
+   .t-heading-xl and -sm ARE uppercased: they label a section of a page
+   ("Conversation", "Full history", "Items"), and a tracked-out caps label is
+   the loudest single signal in this look. The two in between stay in sentence
+   case because they carry real content - a product name, a ticket subject -
+   where caps would be shouting somebody's own words back at them. */
+.t-heading-xl {
+  font-family: var(--f-display);
+  font-variation-settings: "opsz" 28;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.36;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  margin: 0;
+}
+.t-heading-lg { font-family: var(--f-display); font-variation-settings: "opsz" 24; font-size: 24px; font-weight: 400; line-height: 1.24; letter-spacing: .9px; margin: 0; }
+.t-heading-md { font-family: var(--f-display); font-variation-settings: "opsz" 20; font-size: 19px; font-weight: 500; line-height: 1.45; letter-spacing: .6px; margin: 0; }
+.t-heading-sm {
+  font-family: var(--f-display);
+  font-variation-settings: "opsz" 18;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Body lightens by one step across the board. 550 was a semibold-ish body that
+   fought the thin display sizes; 400-460 sits under them instead. */
+.t-body-lg     { font-size: 17px; font-weight: 400; line-height: 1.7; }
+.t-body-md     { font-size: 15px; font-weight: 400; line-height: 1.7; }
+.t-body-strong { font-size: 15px; font-weight: 550; line-height: 1.6; }
+.t-caption     { font-size: 13px; font-weight: 400; line-height: 1.6; letter-spacing: .2px; }
+.t-micro       { font-size: 12px; font-weight: 400; line-height: 1.55; letter-spacing: .3px; }
 
 .t-eyebrow {
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 11px;
+  font-weight: 500;
   line-height: 1.2;
-  letter-spacing: .72px;
+  letter-spacing: 2.6px;
   text-transform: uppercase;
 }
 
 /* Display stair: 96 -> 70 -> 55 -> 48 -> 36 (reference section "Collapsing Strategy") */
+/* Tracking comes down with the size. Letter-spacing that reads as generous at
+   96px reads as broken at 36px, because the gaps stop being proportional to
+   the letters and start being holes in the word. */
 @media (max-width: 1439.98px) {
-  .t-display-xxl { font-size: 70px; letter-spacing: 1.2px; }
-  .t-display-xl  { font-size: 55px; }
+  .t-display-xxl { font-size: 70px; letter-spacing: 2.8px; }
+  .t-display-xl  { font-size: 55px; letter-spacing: 2.2px; }
 }
 @media (max-width: 1023.98px) {
-  .t-display-xxl { font-size: 55px; letter-spacing: .6px; }
-  .t-display-xl  { font-size: 48px; }
-  .t-display-lg  { font-size: 40px; }
-  .t-display-md  { font-size: 36px; }
+  .t-display-xxl { font-size: 55px; letter-spacing: 2.2px; }
+  .t-display-xl  { font-size: 48px; letter-spacing: 1.8px; }
+  .t-display-lg  { font-size: 40px; letter-spacing: 1.4px; }
+  .t-display-md  { font-size: 36px; letter-spacing: 1.2px; }
 }
 @media (max-width: 767.98px) {
-  .t-display-xxl { font-size: 36px; letter-spacing: 0; font-weight: 400; }
-  .t-display-xl  { font-size: 34px; font-weight: 400; }
-  .t-display-lg  { font-size: 30px; font-weight: 400; }
-  .t-display-md  { font-size: 28px; font-weight: 400; }
-  .t-heading-xl  { font-size: 22px; }
+  .t-display-xxl { font-size: 36px; letter-spacing: 1px;  font-weight: 400; }
+  .t-display-xl  { font-size: 34px; letter-spacing: .8px; font-weight: 400; }
+  .t-display-lg  { font-size: 30px; letter-spacing: .6px; font-weight: 400; }
+  .t-display-md  { font-size: 28px; letter-spacing: .5px; font-weight: 400; }
+  .t-heading-xl  { font-size: 18px; letter-spacing: 1.6px; }
+  .t-heading-sm  { letter-spacing: 1.2px; }
+  .t-eyebrow     { letter-spacing: 1.8px; }
 }
 
 /* =============================================================================
@@ -263,7 +329,6 @@ body {
 :focus-visible {
   outline: 2px solid var(--c-ink);
   outline-offset: 2px;
-  border-radius: var(--r-xs);
 }
 
 .track-cinematic :focus-visible {
@@ -277,9 +342,12 @@ body {
   left: var(--s-lg);
   z-index: 2000;
   padding: var(--s-md) var(--s-xl);
-  background: var(--c-canvas-light);
-  color: var(--c-ink);
-  border-radius: var(--r-pill);
+  background: var(--c-ink);
+  color: var(--c-on-dark);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
   box-shadow: var(--e-4);
   width: auto;
   height: auto;

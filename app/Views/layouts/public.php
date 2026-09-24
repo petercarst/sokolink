@@ -14,7 +14,11 @@ declare(strict_types=1);
  * @var string $content
  * @var string $track
  */
-$track = $track ?? 'cinematic';
+// The DEFAULT is the light track. The two tracks still exist and a page that
+// asks for cinematic still gets it; what changed is which one a page gets when
+// it does not ask. The marketing pages read as paper with black accents rather
+// than as a black site with light panels.
+$track = $track ?? 'transactional';
 ?>
 <!doctype html>
 <html lang="<?= e((string) config('app.locale', 'en')) ?>"

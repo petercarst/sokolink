@@ -16,7 +16,7 @@ project is a two-track commerce application. The mapping is direct:
 | Reference track | Our surface | Character |
 |---|---|---|
 | **Cinematic** — near-black canvas, full-bleed photography, monumental thin display type, one CTA per band | **Public marketplace**: home, category, product, store profile, about, auth | Editorial, aspirational, product photography carries the page |
-| **Transactional** — white / cream canvas, aloe and pistachio accents, dense pill vocabulary, Inter body | **All six dashboards** and cart/checkout | Dense, scannable, built for people doing a job |
+| **Transactional** — warm cream canvas, sand accents, square vocabulary, Inter body | **All six dashboards**, cart/checkout, **and the public pages by default** | Dense, scannable, built for people doing a job |
 
 The reference's own rule — *"when designing a new page, choose cinematic OR transactional, not both"* —
 becomes our layout rule: `layouts/public.php` is cinematic, `layouts/dashboard.php` is transactional.
@@ -45,25 +45,25 @@ hex values in a template.
 
   /* Canvases */
   --c-canvas-night:     #000000;
-  --c-canvas-night-el:  #0a0a0a;
-  --c-surface-dark-el:  #1e2c31;
+  --c-canvas-night-el:  #111111;
+  --c-surface-dark-el:  #1c1c1c;
   --c-canvas-light:     #ffffff;
-  --c-canvas-cream:     #fbfbf5;
+  --c-canvas-cream:     #f4f2ef;
 
-  /* Accents - LIGHT TRACK ONLY */
-  --c-aloe-10:          #c1fbd4;
-  --c-pistachio-10:     #d4f9e0;
+  /* Accents - LIGHT TRACK ONLY. Warm neutrals, not colour. */
+  --c-aloe-10:          #ece3d4;
+  --c-pistachio-10:     #f1eee8;
 
-  /* Shade ladder */
-  --c-shade-30:         #d4d4d8;
-  --c-shade-40:         #a1a1aa;
-  --c-shade-50:         #71717a;
-  --c-shade-60:         #52525b;
-  --c-shade-70:         #3f3f46;
+  /* Shade ladder - warm, not zinc */
+  --c-shade-30:         #dedad3;
+  --c-shade-40:         #a8a49c;
+  --c-shade-50:         #6b675f;
+  --c-shade-60:         #524f4a;
+  --c-shade-70:         #373531;
 
   /* Hairlines */
-  --c-hairline-light:   #e4e4e7;
-  --c-hairline-dark:    #1e2c31;
+  --c-hairline-light:   #e3ded6;
+  --c-hairline-dark:    #202020;
 
   /* Muted links on dark */
   --c-link-cool-1:      #9dabad;
@@ -117,12 +117,13 @@ Responsive display stair, per the reference: **96 → 70 → 55 → 48 → 36px*
   --s-xxs: 2px;  --s-xs: 4px;   --s-sm: 8px;   --s-md: 12px;
   --s-lg: 16px;  --s-xl: 24px;  --s-xxl: 32px; --s-huge: 64px;
 
-  --r-xs: 4px; --r-sm: 5px; --r-md: 8px; --r-lg: 12px; --r-xl: 20px; --r-pill: 9999px;
+  /* Square. --r-round is the one exception, for genuinely circular things. */
+  --r-xs: 0; --r-sm: 0; --r-md: 0; --r-lg: 0; --r-xl: 0; --r-pill: 0;
+  --r-round: 9999px;
 
   --e-1: 0 1px 2px rgba(255,255,255,.05), inset 0 1px 0 rgba(255,255,255,.04);
   --e-2: 0 0 0 1px rgba(255,255,255,.08), 0 1px 3px rgba(0,0,0,.3), 0 5px 10px rgba(0,0,0,.2);
-  --e-3: 0 8px 8px rgba(0,0,0,.1), 0 4px 4px rgba(0,0,0,.1),
-         0 2px 2px rgba(0,0,0,.1), 0 0 0 1px rgba(0,0,0,.1);
+  --e-3: 0 1px 2px rgba(31,28,24,.04), 0 10px 30px rgba(31,28,24,.07);
   --e-4: 0 25px 50px -12px rgba(0,0,0,.25);
 }
 ```
@@ -172,7 +173,7 @@ maps onto its vocabulary.
 | Cart / order summary | `card-pricing` | Totals right-aligned, `display-md` for the grand total |
 | Featured / recommended tile | `card-pricing-featured` | Aloe fill, the reference's featured pattern |
 | Category band | `card-pistachio-band` | Wide pistachio band, light track only |
-| Buttons | the four pill variants | **Pill shape is non-negotiable.** New variants change fill, never shape |
+| Buttons | the four square variants | **Square, uppercase and tracked is non-negotiable.** New variants change fill, never shape or case |
 | Form inputs | `text-input` | 44px minimum height at every breakpoint |
 | Tags / chips | `pill-tag-mint`, `pill-tag-shade` | Category chips, filter chips |
 | **Status badge** | extends `pill-tag-*` | See §5 — this is the gap in the reference |
@@ -332,3 +333,50 @@ Sparing, in keeping with the reference's editorial restraint.
 
 A `/styleguide` page rendering every token and component will be the first thing built in Phase 1, so
 you can approve the look on one screen instead of across 85.
+
+---
+
+## Appendix — 2026-09-24 revision
+
+The system was retuned to an editorial, minimal register. Nothing about the
+structure changed: the same tokens, the same two tracks, the same component
+vocabulary. Four values carry almost all of it.
+
+| What | From | To | Why |
+|---|---|---|---|
+| Canvas | `#fbfbf5` cool | `#f4f2ef` warm | The single value that decides whether the whole site reads as clinical or as paper |
+| Radius | 4–20px, pill | `0` everywhere | A right angle on every corner. `--r-round` is kept for things that are genuinely circular, where a square would read as a different component |
+| Accents | mint `#c1fbd4` | sand `#ece3d4` | Monochrome by intent. An accent marks a surface as different; it does not shout. Anything that needs to shout is a status badge |
+| Shade ladder | zinc (faintly blue) | warm grey | The old ladder fought the cream |
+
+Typography moved with it: display sizes are tracked out and stay in sentence
+case; `heading-xl` and `heading-sm` became tracked caps, because they label a
+section rather than carry content; body weights dropped a step so they sit
+under the thin display sizes rather than competing with them. Buttons, labels,
+table headers, chips and badges are all small tracked caps now.
+
+**The default track flipped.** `layouts/public.php` defaulted to `cinematic`,
+so a page that did not ask got a black canvas. It now defaults to
+`transactional`. Both tracks still exist and a page that asks for cinematic
+still gets exactly what it had — the error pages and the styleguide still do.
+
+That flip needed section 16 of `app.css`. The public pages were written for the
+dark track and say so in their markup: `t-on-dark`, `sl-btn-outline-dark`,
+`sl-card-cinematic` and friends appear about two hundred times across them, and
+on a light canvas every one of those is invisible rather than merely wrong.
+Rewriting two hundred class attributes would touch a lot of files for a purely
+visual result, and each edit is a chance to miss one and leave a paragraph
+unreadable. So the vocabulary is redefined once, for pages not on the cinematic
+track, and re-inverted inside the surfaces that really are dark — the nav, the
+footer, a photo overlay, the mobile menu.
+
+Contrast was re-checked across the new palette. Every pairing is at least
+4.5:1; `shade-50` was set for headroom (5.0:1 on cream, 5.6:1 on white) rather
+than to the minimum, because the first value that merely passed left nothing
+for a future canvas tweak to spend.
+
+The product placeholder tones were desaturated in the same pass. The nine keys
+are unchanged, so a product still gets the same deterministic tone from its
+slug — it now reads as a different shade of paper rather than as a different
+colour. That panel stands in for photography that does not exist yet, and a
+coloured one decides on the seller's behalf that their product is green.

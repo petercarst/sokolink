@@ -32,17 +32,29 @@ if (is_string($path) && $path !== '') :
     return;
 endif;
 
-/** tone key => [background from, background to, ink] */
+/**
+ * tone key => [background from, background to, ink]
+ *
+ * MONOCHROME BY INTENT. These were nine hues; they are now nine warm neutrals
+ * a step or two apart. The keys are unchanged, so the deterministic tone a
+ * product gets from its slug is the same tone it got before - it simply reads
+ * as a different shade of paper rather than as a different colour.
+ *
+ * The reason is that this panel stands in for photography that does not exist
+ * yet. A coloured panel competes with the real photographs beside it and
+ * decides, on the seller's behalf, that their product is green. A neutral one
+ * recedes and lets the catalogue look like one shop rather than nine.
+ */
 $tones = [
-    'amber'  => ['#f4d9a0', '#e8b85c', '#4a3508'],
-    'sand'   => ['#ece3d2', '#d9c9aa', '#4a3f2a'],
-    'cream'  => ['#f5f2e8', '#e4ddc8', '#4a452f'],
-    'clay'   => ['#e8cdbb', '#d3a488', '#4a2f1e'],
-    'forest' => ['#cfe0cf', '#9dbb9f', '#1e3320'],
-    'mint'   => ['#d9f5e3', '#a9e0c1', '#10352a'],
-    'rose'   => ['#f2d3d3', '#dfa8a8', '#5a1414'],
-    'sky'    => ['#d6e6f2', '#a8c6dd', '#13334a'],
-    'slate'  => ['#e2e2e6', '#c2c2ca', '#3f3f46'],
+    'amber'  => ['#efe7da', '#ddd0bb', '#4a4238'],
+    'sand'   => ['#ece3d2', '#d8ccb6', '#4a4238'],
+    'cream'  => ['#f5f2ec', '#e4ded2', '#4a4740'],
+    'clay'   => ['#e9e1d8', '#d4c7b8', '#463c33'],
+    'forest' => ['#e2e2dd', '#c9c9c1', '#37372f'],
+    'mint'   => ['#eaeae6', '#d2d2cb', '#3a3a34'],
+    'rose'   => ['#efe8e4', '#dbcec7', '#453832'],
+    'sky'    => ['#e5e6e7', '#cbcdcf', '#353839'],
+    'slate'  => ['#e3e1de', '#c6c3bd', '#3f3d39'],
 ];
 
 [$from, $to, $ink] = $tones[$tone] ?? $tones['slate'];

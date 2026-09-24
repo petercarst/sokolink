@@ -46,8 +46,12 @@
 
 /* =============================================================================
    2. BUTTONS
-   The pill shape is non-negotiable. Variants change fill and border, never
-   shape (reference: "Iteration Guide" item 7).
+   SQUARE, uppercase and tracked out. Variants change fill and border, never
+   shape or case - a rounded or sentence-case button in the middle of this
+   reads as a different component rather than as a variant.
+
+   The label is small and widely spaced rather than large and tight. That is
+   what keeps a solid black rectangle from dominating a page full of thin type.
    ========================================================================== */
 .sl-btn {
   display: inline-flex;
@@ -55,11 +59,13 @@
   justify-content: center;
   gap: var(--s-sm);
   font-family: var(--f-body);
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 1.25;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   text-decoration: none;
-  padding: 12px 24px;
+  padding: 14px 30px;
   min-height: 44px;              /* touch target, every breakpoint */
   border-radius: var(--r-pill);
   border: 1px solid transparent;
@@ -104,13 +110,16 @@
 }
 .sl-btn-outline-light:hover  { background-color: var(--c-ink); color: var(--c-on-primary); }
 
-/* Mint pill - the single most affirmative action on a screen. */
+/* Warm sand - the single most affirmative action on a screen. It is quieter
+   than the solid black primary on purpose: black is "do the main thing here",
+   sand is "do the agreeable thing", and two equally loud buttons side by side
+   answer neither question. */
 .sl-btn-aloe {
   background-color: var(--c-aloe-10);
   color: var(--c-ink);
   border-color: var(--c-aloe-10);
 }
-.sl-btn-aloe:hover  { background-color: #a9f5c3; border-color: #a9f5c3; color: var(--c-ink); }
+.sl-btn-aloe:hover  { background-color: #e0d4bf; border-color: #e0d4bf; color: var(--c-ink); }
 
 /* Quiet tertiary action - still a pill. */
 .sl-btn-ghost {
@@ -119,6 +128,7 @@
   border-color: transparent;
 }
 .sl-btn-ghost:hover { background-color: var(--c-shade-30); color: var(--c-ink); }
+.sl-btn-outline-light:active { background-color: var(--c-shade-70); color: var(--c-on-primary); }
 
 .sl-btn-ghost-dark {
   background-color: transparent;
@@ -133,17 +143,19 @@
   color: var(--c-status-danger-fg);
   border-color: var(--c-status-danger-bg);
 }
-.sl-btn-danger:hover { background-color: #f7bcbc; border-color: #f7bcbc; color: var(--c-status-danger-fg); }
+.sl-btn-danger:hover { background-color: #ebcbc6; border-color: #ebcbc6; color: var(--c-status-danger-fg); }
 
-.sl-btn-sm  { padding: 8px 16px;  min-height: 36px; font-size: 14px; }
-.sl-btn-lg  { padding: 16px 32px; min-height: 52px; font-size: 18px; }
+.sl-btn-sm  { padding: 9px 18px;  min-height: 36px; font-size: 11px; letter-spacing: 1.6px; }
+.sl-btn-lg  { padding: 18px 44px; min-height: 54px; font-size: 13px; letter-spacing: 2.4px; }
 .sl-btn-block { display: flex; width: 100%; }
 
+/* An icon button carries no label, so it keeps none of the tracking. */
 .sl-btn-icon {
   padding: 0;
   width: 44px;
   height: 44px;
   min-height: 44px;
+  letter-spacing: 0;
   border-radius: var(--r-pill);
 }
 
@@ -157,6 +169,11 @@
   border-radius: var(--r-lg);
   padding: var(--s-xxl);
 }
+
+/* White on warm cream is already a visible edge, so most cards do not need a
+   border as well. The hairline stays for the ones sitting ON white. */
+.sl-card { border-color: transparent; }
+.sl-card-outlined { border-color: var(--c-hairline-light); }
 
 /* The reference's signature light-track depth: four stacked tiny shadows that
    read as paper rather than as a drop shadow. */
@@ -213,10 +230,10 @@
   display: inline-flex;
   align-items: center;
   gap: var(--s-xs);
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
   line-height: 1.2;
-  letter-spacing: .4px;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
   padding: 5px 12px;
   border-radius: var(--r-pill);
@@ -245,7 +262,9 @@
 .sl-badge-neutral { background-color: var(--c-status-neutral-bg); color: var(--c-status-neutral-fg); }
 
 @media (max-width: 575.98px) {
-  .sl-badge { white-space: normal; text-align: left; }
+  .sl-badge {
+  letter-spacing: 1.4px;
+  text-transform: uppercase; white-space: normal; text-align: left; }
 }
 
 /* On the cinematic track, badges are outlines - the mints stay on light. */
@@ -261,11 +280,11 @@
   display: inline-flex;
   align-items: center;
   gap: var(--s-xs);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: .72px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
-  padding: 6px 14px;
+  padding: 6px 12px;
   border-radius: var(--r-pill);
   background-color: var(--c-shade-30);
   color: var(--c-ink);
@@ -275,7 +294,7 @@
 .sl-chip:hover { background-color: var(--c-shade-40); color: var(--c-ink); }
 
 .sl-chip-mint { background-color: var(--c-aloe-10); }
-.sl-chip-mint:hover { background-color: #a9f5c3; }
+.sl-chip-mint:hover { background-color: #e0d4bf; }
 
 .sl-chip.is-active { background-color: var(--c-ink); color: var(--c-on-primary); }
 .sl-chip.is-active:hover { background-color: var(--c-shade-70); color: var(--c-on-primary); }
@@ -294,8 +313,10 @@
 
 .sl-label {
   display: block;
-  font-size: 14px;
-  font-weight: 550;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
   line-height: 1.4;
   margin-bottom: var(--s-sm);
   color: #0a0a0a;
@@ -337,7 +358,7 @@
 .sl-input:disabled,
 .sl-select:disabled,
 .sl-textarea:disabled {
-  background-color: #f4f4f5;
+  background-color: #f1eee9;
   color: var(--c-shade-50);
   cursor: not-allowed;
 }
@@ -448,32 +469,44 @@
 
 .sl-nav-sticky { position: sticky; top: 0; z-index: 1030; }
 
+/* The wordmark is the clearest statement of the whole look: wide, light,
+   uppercase, unhurried. Nothing else on the page is tracked this far. */
 .sl-brand {
   display: inline-flex;
   align-items: center;
-  gap: var(--s-sm);
+  gap: var(--s-md);
   font-family: var(--f-display);
   font-variation-settings: "opsz" 24;
-  font-size: 22px;
+  font-size: 19px;
   font-weight: 500;
-  letter-spacing: -.2px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
   text-decoration: none;
   color: inherit;
 }
 .sl-brand:hover { color: inherit; }
 
 .sl-brand-mark {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--r-sm);
-  background-color: var(--c-aloe-10);
-  color: var(--c-ink);
+  background-color: var(--c-ink);
+  color: var(--c-on-dark);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
   flex: 0 0 auto;
+}
+
+/* On the dark track the mark inverts, or it is a black square on black. */
+.sl-nav-dark .sl-brand-mark,
+.sl-footer-dark .sl-brand-mark,
+.track-cinematic .sl-brand-mark {
+  background-color: var(--c-on-dark);
+  color: var(--c-ink);
 }
 
 .sl-navlink {
@@ -487,12 +520,16 @@
   border: 0;
   cursor: pointer;
   padding: var(--s-sm) var(--s-md);
-  font-size: 15px;
-  font-weight: 420;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
   color: inherit;
   text-decoration: none;
   border-radius: var(--r-pill);
-  transition: background-color var(--t-fast) var(--ease), opacity var(--t-fast) var(--ease);
+  transition: background-color var(--t-fast) var(--ease),
+              opacity var(--t-fast) var(--ease),
+              color var(--t-fast) var(--ease);
 }
 .sl-nav-dark .sl-navlink:hover  { background-color: rgba(255,255,255,.1); color: var(--c-on-dark); }
 .sl-nav-light .sl-navlink:hover { background-color: var(--c-shade-30); color: var(--c-ink); }
@@ -506,15 +543,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 20px;
-  height: 20px;
-  padding: 0 6px;
-  border-radius: var(--r-pill);
-  background-color: var(--c-aloe-10);
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--r-round);
+  background-color: var(--c-on-dark);
   color: var(--c-ink);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   line-height: 1;
+}
+
+.sl-nav-light .sl-cart-count {
+  background-color: var(--c-ink);
+  color: var(--c-on-dark);
 }
 
 /* =============================================================================
@@ -534,9 +576,9 @@
 }
 
 .sl-footer-heading {
-  font-size: 12px;
-  font-weight: 550;
-  letter-spacing: .72px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2.2px;
   text-transform: uppercase;
   margin-bottom: var(--s-lg);
   color: var(--c-shade-40);
@@ -580,7 +622,7 @@
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background-color: #f4f4f5;
+  background-color: #f1eee9;
 }
 .sl-product-media img,
 .sl-product-media svg {
@@ -670,16 +712,16 @@
   vertical-align: middle;
 }
 .sl-table th {
-  font-size: 12px;
-  font-weight: 550;
-  letter-spacing: .5px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
   color: var(--c-shade-50);
   white-space: nowrap;
 }
 .sl-table td { font-size: 15px; }
 .sl-table tbody tr:last-child td { border-bottom: none; }
-.sl-table tbody tr:hover { background-color: #fafafa; }
+.sl-table tbody tr:hover { background-color: #faf8f5; }
 .sl-table .sl-num { text-align: right; font-variant-numeric: tabular-nums; }
 
 .sl-timeline { list-style: none; margin: 0; padding: 0; position: relative; }
@@ -964,7 +1006,7 @@
   text-decoration: none;
   transition: background-color var(--t-fast) var(--ease);
 }
-.sl-side-link:hover { background-color: #f4f4f5; color: #0a0a0a; }
+.sl-side-link:hover { background-color: #f1eee9; color: #0a0a0a; }
 .sl-side-link.is-current {
   background-color: var(--c-aloe-10);
   font-weight: 550;
@@ -1128,3 +1170,202 @@
   .sl-btn { white-space: normal; }
 }
 .sl-btn { max-width: 100%; }
+
+/* =============================================================================
+   16. LIGHT CANVAS, DARK VOCABULARY
+
+   The public pages were written for the cinematic track and say so in their
+   markup: `t-on-dark`, `sl-btn-outline-dark`, `sl-card-cinematic` and friends
+   appear about two hundred times across them. The canvas is now light, so
+   every one of those would be white text on cream - invisible rather than
+   merely wrong.
+
+   Rewriting two hundred class attributes would be a large change to a lot of
+   files for a purely visual result, and every one of those edits is a chance
+   to miss one and leave a paragraph unreadable. So the meaning of the
+   vocabulary is redefined here instead, in one place, for pages that are NOT
+   on the cinematic track.
+
+   The second block puts the inversion back inside surfaces that really are
+   dark - the nav, the footer, a photo overlay. Those still need white text on
+   a light page, and they are the only things that do.
+
+   `.track-cinematic` is untouched throughout: a page that genuinely asks for
+   the dark track still gets exactly what it had.
+   ========================================================================== */
+
+body:not(.track-cinematic) .t-on-dark    { color: #0a0a0a; }
+body:not(.track-cinematic) .t-muted-dark { color: var(--c-shade-50); }
+
+/* A stroked button on cream is stroked in ink, not in white. */
+body:not(.track-cinematic) .sl-btn-outline-dark {
+  color: var(--c-ink);
+  border-color: var(--c-ink);
+}
+body:not(.track-cinematic) .sl-btn-outline-dark:hover {
+  background-color: var(--c-ink);
+  color: var(--c-on-primary);
+}
+body:not(.track-cinematic) .sl-btn-outline-dark:active {
+  background-color: var(--c-shade-70);
+  color: var(--c-on-primary);
+}
+
+body:not(.track-cinematic) .sl-btn-ghost-dark { color: var(--c-ink); }
+body:not(.track-cinematic) .sl-btn-ghost-dark:hover {
+  background-color: var(--c-shade-30);
+  color: var(--c-ink);
+}
+
+body:not(.track-cinematic) .sl-chip-dark {
+  background-color: var(--c-shade-30);
+  color: var(--c-ink);
+  border-color: transparent;
+}
+body:not(.track-cinematic) .sl-chip-dark:hover {
+  background-color: var(--c-shade-40);
+  color: var(--c-ink);
+}
+
+body:not(.track-cinematic) .sl-badge-on-dark {
+  color: var(--c-ink);
+  border-color: var(--c-hairline-light);
+}
+
+/* The black feature card becomes a white one with a hairline. This is the
+   single biggest change to how a page reads: the marketing pages were mostly
+   black panels, and they are now mostly paper. */
+body:not(.track-cinematic) .sl-card-cinematic,
+body:not(.track-cinematic) .sl-card-cinematic-el {
+  background-color: var(--c-canvas-light);
+  color: #0a0a0a;
+  border-color: var(--c-hairline-light);
+  box-shadow: none;
+}
+
+body:not(.track-cinematic) .sl-product-card-dark {
+  background-color: var(--c-canvas-light);
+  color: #0a0a0a;
+  border-color: var(--c-hairline-light);
+}
+
+body:not(.track-cinematic) .sl-divider { background-color: var(--c-hairline-light); }
+
+/* A form control written for the dark track. On cream it was a white-on-white
+   field: present, focusable, and completely invisible - which is how the
+   catalogue's category and seller filters came to look like empty headings. */
+body:not(.track-cinematic) .sl-input-dark {
+  background-color: var(--c-canvas-light);
+  border-color: var(--c-hairline-light);
+  color: #0a0a0a;
+}
+body:not(.track-cinematic) .sl-input-dark::placeholder { color: var(--c-shade-50); }
+body:not(.track-cinematic) .sl-input-dark:focus {
+  border-color: var(--c-ink);
+  outline-color: var(--c-ink);
+  background-color: var(--c-canvas-light);
+}
+
+/* The devnote's dark variant is pale yellow on a translucent wash - legible on
+   black, all but invisible on cream. The footer still passes onDark => true,
+   and the footer is still black, so this only bites where a light page renders
+   one. */
+body:not(.track-cinematic) .sl-devnote-dark {
+  background-color: var(--c-status-warn-bg);
+  color: var(--c-status-warn-fg);
+  border-left-color: var(--c-status-warn-fg);
+}
+
+/* ---- Surfaces that are genuinely dark, even on a light page -------------
+   Put the inversion back. Order matters: these follow the block above so they
+   win on equal specificity, and each one is a real black surface rather than a
+   class that merely says "dark". */
+body:not(.track-cinematic) .sl-nav-dark .t-on-dark,
+body:not(.track-cinematic) .sl-footer-dark .t-on-dark,
+body:not(.track-cinematic) .sl-photo-frame .t-on-dark,
+body:not(.track-cinematic) .offcanvas .t-on-dark {
+  color: var(--c-on-dark);
+}
+
+body:not(.track-cinematic) .sl-nav-dark .t-muted-dark,
+body:not(.track-cinematic) .sl-footer-dark .t-muted-dark,
+body:not(.track-cinematic) .sl-photo-frame .t-muted-dark,
+body:not(.track-cinematic) .offcanvas .t-muted-dark {
+  color: var(--c-shade-40);
+}
+
+body:not(.track-cinematic) .sl-nav-dark .sl-btn-outline-dark,
+body:not(.track-cinematic) .sl-footer-dark .sl-btn-outline-dark,
+body:not(.track-cinematic) .sl-photo-frame .sl-btn-outline-dark,
+body:not(.track-cinematic) .offcanvas .sl-btn-outline-dark {
+  color: var(--c-on-dark);
+  border-color: var(--c-on-dark);
+}
+body:not(.track-cinematic) .sl-nav-dark .sl-btn-outline-dark:hover,
+body:not(.track-cinematic) .sl-footer-dark .sl-btn-outline-dark:hover,
+body:not(.track-cinematic) .sl-photo-frame .sl-btn-outline-dark:hover,
+body:not(.track-cinematic) .offcanvas .sl-btn-outline-dark:hover {
+  background-color: var(--c-on-dark);
+  color: var(--c-ink);
+}
+
+body:not(.track-cinematic) .sl-nav-dark .sl-btn-ghost-dark,
+body:not(.track-cinematic) .sl-footer-dark .sl-btn-ghost-dark,
+body:not(.track-cinematic) .offcanvas .sl-btn-ghost-dark {
+  color: var(--c-on-dark);
+}
+body:not(.track-cinematic) .sl-nav-dark .sl-btn-ghost-dark:hover,
+body:not(.track-cinematic) .sl-footer-dark .sl-btn-ghost-dark:hover,
+body:not(.track-cinematic) .offcanvas .sl-btn-ghost-dark:hover {
+  background-color: rgba(255,255,255,.12);
+  color: var(--c-on-dark);
+}
+
+body:not(.track-cinematic) .sl-footer-dark .sl-divider,
+body:not(.track-cinematic) .offcanvas .sl-divider {
+  background-color: var(--c-hairline-dark);
+}
+
+body:not(.track-cinematic) .sl-nav-dark .sl-input-dark,
+body:not(.track-cinematic) .sl-footer-dark .sl-input-dark,
+body:not(.track-cinematic) .offcanvas .sl-input-dark {
+  background-color: rgba(255,255,255,.07);
+  border-color: rgba(255,255,255,.22);
+  color: var(--c-on-dark);
+}
+body:not(.track-cinematic) .sl-nav-dark .sl-input-dark::placeholder,
+body:not(.track-cinematic) .offcanvas .sl-input-dark::placeholder {
+  color: var(--c-shade-40);
+}
+
+body:not(.track-cinematic) .sl-footer-dark .sl-devnote-dark {
+  background-color: rgba(253,240,196,.12);
+  color: #fdf0c4;
+  border-left-color: #fdf0c4;
+}
+
+/* =============================================================================
+   17. EDITORIAL SECTIONS
+
+   Alternating paper and cream is what gives a long page its rhythm when there
+   is no colour to do it. A section is either on the cream canvas or on white;
+   nothing else distinguishes them, which is the point.
+   ========================================================================== */
+body:not(.track-cinematic) .sl-section-air,
+body:not(.track-cinematic) .sl-section {
+  background-color: transparent;
+}
+
+.sl-band-paper {
+  background-color: var(--c-canvas-light);
+  border-block: 1px solid var(--c-hairline-light);
+}
+
+.sl-band-sand {
+  background-color: var(--c-aloe-10);
+}
+
+.sl-band-ink {
+  background-color: var(--c-canvas-night);
+  color: var(--c-on-dark);
+}
