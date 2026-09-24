@@ -1,0 +1,11 @@
+/* Tailwind source. Build with:  npm run build:css
+ *
+ * Utilities only - no @tailwind base. Bootstrap's Reboot is the reset for this
+ * project, and Tailwind's preflight is disabled in tailwind.config.js so the
+ * two cannot fight. See docs/DESIGN_SYSTEM.md section 6.
+ *
+ * The compiled output (public/assets/css/tailwind.build.css) is COMMITTED, so
+ * running the application never requires Node.
+ */
+@tailwind components;
+@tailwind utilities;

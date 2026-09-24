@@ -1,0 +1,1130 @@
+/* =============================================================================
+   SokoLink - component classes
+   Loaded AFTER bootstrap.min.css and design-tokens.css, and BEFORE
+   tailwind.build.css - utilities must be able to override a component.
+
+   Rule for developers: one styling system per component.
+   Bootstrap styles the component, Tailwind (tw-*) adjusts spacing/layout around
+   it, and this file holds anything reused more than twice.
+   class="btn btn-primary tw-bg-black" is a defect, not a style choice.
+   ========================================================================== */
+
+/* =============================================================================
+   1. TRACKS
+   A page picks ONE. There is no third option and no blending.
+   ========================================================================== */
+.track-cinematic {
+  background-color: var(--c-canvas-night);
+  color: var(--c-on-dark);
+}
+
+.track-transactional {
+  background-color: var(--c-canvas-cream);
+  color: #0a0a0a;
+}
+
+.sl-container {
+  width: 100%;
+  max-width: var(--container-normal);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.sl-container-wide { max-width: var(--container-wide); }
+.sl-container-read { max-width: var(--container-read); }
+
+/* Cinematic sections breathe; transactional sections tighten because users are
+   scanning and acting, not reading an editorial spread. */
+.sl-section        { padding-block: var(--s-huge); }
+.sl-section-air    { padding-block: clamp(64px, 10vw, 128px); }
+.sl-section-tight  { padding-block: 48px; }
+
+@media (max-width: 767.98px) {
+  .sl-section     { padding-block: 40px; }
+  .sl-section-air { padding-block: 56px; }
+}
+
+/* =============================================================================
+   2. BUTTONS
+   The pill shape is non-negotiable. Variants change fill and border, never
+   shape (reference: "Iteration Guide" item 7).
+   ========================================================================== */
+.sl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-sm);
+  font-family: var(--f-body);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-decoration: none;
+  padding: 12px 24px;
+  min-height: 44px;              /* touch target, every breakpoint */
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color var(--t-fast) var(--ease),
+              border-color var(--t-fast) var(--ease),
+              color var(--t-fast) var(--ease);
+  white-space: nowrap;
+}
+
+.sl-btn:disabled,
+.sl-btn.is-disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Solid black pill - the dominant CTA on the light track. */
+.sl-btn-primary {
+  background-color: var(--c-primary);
+  color: var(--c-on-primary);
+  border-color: var(--c-primary);
+}
+.sl-btn-primary:hover  { background-color: var(--c-shade-70); border-color: var(--c-shade-70); color: var(--c-on-primary); }
+.sl-btn-primary:active { background-color: var(--c-shade-60); border-color: var(--c-shade-60); }
+
+/* White-stroked pill on black - the cinematic hero CTA. */
+.sl-btn-outline-dark {
+  background-color: transparent;
+  color: var(--c-on-dark);
+  border: 2px solid var(--c-on-dark);
+  padding: 11px 25px;
+}
+.sl-btn-outline-dark:hover  { background-color: var(--c-on-dark); color: var(--c-ink); }
+.sl-btn-outline-dark:active { background-color: var(--c-shade-30); color: var(--c-ink); }
+
+/* Ink-stroked pill on light. */
+.sl-btn-outline-light {
+  background-color: var(--c-canvas-light);
+  color: var(--c-ink);
+  border: 1px solid var(--c-ink);
+}
+.sl-btn-outline-light:hover  { background-color: var(--c-ink); color: var(--c-on-primary); }
+
+/* Mint pill - the single most affirmative action on a screen. */
+.sl-btn-aloe {
+  background-color: var(--c-aloe-10);
+  color: var(--c-ink);
+  border-color: var(--c-aloe-10);
+}
+.sl-btn-aloe:hover  { background-color: #a9f5c3; border-color: #a9f5c3; color: var(--c-ink); }
+
+/* Quiet tertiary action - still a pill. */
+.sl-btn-ghost {
+  background-color: transparent;
+  color: var(--c-ink);
+  border-color: transparent;
+}
+.sl-btn-ghost:hover { background-color: var(--c-shade-30); color: var(--c-ink); }
+
+.sl-btn-ghost-dark {
+  background-color: transparent;
+  color: var(--c-on-dark);
+  border-color: transparent;
+}
+.sl-btn-ghost-dark:hover { background-color: rgba(255,255,255,.12); color: var(--c-on-dark); }
+
+/* Destructive actions read as danger without leaving the pill vocabulary. */
+.sl-btn-danger {
+  background-color: var(--c-status-danger-bg);
+  color: var(--c-status-danger-fg);
+  border-color: var(--c-status-danger-bg);
+}
+.sl-btn-danger:hover { background-color: #f7bcbc; border-color: #f7bcbc; color: var(--c-status-danger-fg); }
+
+.sl-btn-sm  { padding: 8px 16px;  min-height: 36px; font-size: 14px; }
+.sl-btn-lg  { padding: 16px 32px; min-height: 52px; font-size: 18px; }
+.sl-btn-block { display: flex; width: 100%; }
+
+.sl-btn-icon {
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  border-radius: var(--r-pill);
+}
+
+/* =============================================================================
+   3. CARDS
+   ========================================================================== */
+.sl-card {
+  background-color: var(--c-canvas-light);
+  color: #0a0a0a;
+  border: 1px solid var(--c-hairline-light);
+  border-radius: var(--r-lg);
+  padding: var(--s-xxl);
+}
+
+/* The reference's signature light-track depth: four stacked tiny shadows that
+   read as paper rather than as a drop shadow. */
+.sl-card-raised { box-shadow: var(--e-3); border-color: transparent; }
+
+.sl-card-featured {
+  background-color: var(--c-aloe-10);
+  border-color: transparent;
+}
+
+.sl-card-band {
+  background-color: var(--c-pistachio-10);
+  border-color: transparent;
+}
+
+.sl-card-tight { padding: var(--s-xl); }
+.sl-card-flush { padding: 0; overflow: hidden; }
+
+/* Cinematic card: flat blackness plus a top-edge sheen. No drop shadow. */
+.sl-card-cinematic {
+  background-color: var(--c-canvas-night-el);
+  color: var(--c-on-dark);
+  border: 1px solid var(--c-hairline-dark);
+  border-radius: var(--r-lg);
+  padding: var(--s-xxl);
+  box-shadow: var(--e-1);
+}
+
+.sl-card-cinematic-el { background-color: var(--c-surface-dark-el); }
+
+/* Photography container: the photo IS the content. No inner padding. */
+.sl-photo-frame {
+  background-color: var(--c-canvas-night);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+}
+
+.sl-photo-frame img,
+.sl-photo-frame svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =============================================================================
+   4. STATUS BADGES (DS-EXT-01)
+   Colour is reinforcement, never the only signal: every badge carries a text
+   label, and a dot glyph for shape redundancy (DS-EXT-02).
+   ========================================================================== */
+.sl-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-xs);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+  /* nowrap keeps a badge on one line where there is room, but max-width stops a
+     long label ("Internal - not visible to the customer") being clipped off the
+     side of a phone by body{overflow-x:hidden}. Below 576px it wraps instead. */
+  white-space: nowrap;
+  max-width: 100%;
+  background-color: var(--c-status-neutral-bg);
+  color: var(--c-status-neutral-fg);
+}
+
+.sl-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+  flex: 0 0 auto;
+}
+
+.sl-badge-success { background-color: var(--c-status-success-bg); color: var(--c-status-success-fg); }
+.sl-badge-info    { background-color: var(--c-status-info-bg);    color: var(--c-status-info-fg); }
+.sl-badge-warn    { background-color: var(--c-status-warn-bg);    color: var(--c-status-warn-fg); }
+.sl-badge-danger  { background-color: var(--c-status-danger-bg);  color: var(--c-status-danger-fg); }
+.sl-badge-neutral { background-color: var(--c-status-neutral-bg); color: var(--c-status-neutral-fg); }
+
+@media (max-width: 575.98px) {
+  .sl-badge { white-space: normal; text-align: left; }
+}
+
+/* On the cinematic track, badges are outlines - the mints stay on light. */
+.track-cinematic .sl-badge,
+.sl-badge-on-dark {
+  background-color: transparent;
+  color: var(--c-on-dark);
+  border: 1px solid rgba(255,255,255,.35);
+}
+
+/* Tags and chips (not status). */
+.sl-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-xs);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: .72px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  background-color: var(--c-shade-30);
+  color: var(--c-ink);
+  text-decoration: none;
+  transition: background-color var(--t-fast) var(--ease);
+}
+.sl-chip:hover { background-color: var(--c-shade-40); color: var(--c-ink); }
+
+.sl-chip-mint { background-color: var(--c-aloe-10); }
+.sl-chip-mint:hover { background-color: #a9f5c3; }
+
+.sl-chip.is-active { background-color: var(--c-ink); color: var(--c-on-primary); }
+.sl-chip.is-active:hover { background-color: var(--c-shade-70); color: var(--c-on-primary); }
+
+.sl-chip-dark {
+  background-color: rgba(255,255,255,.1);
+  color: var(--c-on-dark);
+  border: 1px solid rgba(255,255,255,.2);
+}
+.sl-chip-dark:hover { background-color: rgba(255,255,255,.2); color: var(--c-on-dark); }
+
+/* =============================================================================
+   5. FORMS
+   ========================================================================== */
+.sl-field { margin-bottom: var(--s-xl); }
+
+.sl-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 550;
+  line-height: 1.4;
+  margin-bottom: var(--s-sm);
+  color: #0a0a0a;
+}
+
+.sl-label .sl-required { color: var(--c-status-danger-fg); margin-left: 2px; }
+
+.sl-input,
+.sl-select,
+.sl-textarea {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  font-family: var(--f-body);
+  font-size: 16px;                 /* 16px stops iOS zooming on focus */
+  font-weight: 420;
+  line-height: 1.5;
+  color: var(--c-ink);
+  background-color: var(--c-canvas-light);
+  border: 1px solid var(--c-hairline-light);
+  border-radius: var(--r-md);
+  transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+
+.sl-textarea { min-height: 120px; resize: vertical; }
+
+.sl-input:focus,
+.sl-select:focus,
+.sl-textarea:focus {
+  border-color: var(--c-ink);
+  outline: 2px solid var(--c-ink);
+  outline-offset: 1px;
+}
+
+.sl-input::placeholder,
+.sl-textarea::placeholder { color: var(--c-shade-50); }
+
+.sl-input:disabled,
+.sl-select:disabled,
+.sl-textarea:disabled {
+  background-color: #f4f4f5;
+  color: var(--c-shade-50);
+  cursor: not-allowed;
+}
+
+.sl-input.is-invalid,
+.sl-select.is-invalid,
+.sl-textarea.is-invalid { border-color: var(--c-status-danger-fg); }
+
+.sl-help  { display: block; font-size: 13px; color: var(--c-shade-50); margin-top: var(--s-xs); }
+.sl-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-xs);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-status-danger-fg);
+  margin-top: var(--s-xs);
+}
+
+/* Inputs on the cinematic track (search in the dark nav, newsletter). */
+.sl-input-dark {
+  background-color: rgba(255,255,255,.07);
+  border-color: rgba(255,255,255,.22);
+  color: var(--c-on-dark);
+}
+.sl-input-dark::placeholder { color: var(--c-shade-40); }
+.sl-input-dark:focus {
+  border-color: var(--c-on-dark);
+  outline-color: var(--c-on-dark);
+  background-color: rgba(255,255,255,.12);
+}
+
+/* Checkbox / radio rows with a 44px target and a readable label. */
+.sl-check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-md);
+  padding: var(--s-sm) 0;
+  cursor: pointer;
+}
+.sl-check input[type="checkbox"],
+.sl-check input[type="radio"] {
+  /* 24px is the WCAG 2.5.8 minimum target size. The wrapping label is also
+     clickable and much larger, but the control itself should not be the
+     smallest thing on the page. */
+  width: 24px;
+  height: 24px;
+  margin-top: 1px;
+  flex: 0 0 auto;
+  accent-color: var(--c-ink);
+  cursor: pointer;
+}
+.sl-check-label { font-size: 15px; line-height: 1.5; }
+
+/* Selectable option card - store choice, fulfilment choice, payment choice. */
+.sl-option {
+  display: flex;
+  gap: var(--s-lg);
+  width: 100%;
+  text-align: left;
+  padding: var(--s-lg);
+  background-color: var(--c-canvas-light);
+  border: 1px solid var(--c-hairline-light);
+  border-radius: var(--r-lg);
+  cursor: pointer;
+  transition: border-color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+}
+.sl-option:hover { border-color: var(--c-shade-40); }
+.sl-option.is-selected {
+  border-color: var(--c-ink);
+  background-color: var(--c-aloe-10);
+}
+.sl-option.is-disabled { opacity: .55; cursor: not-allowed; }
+
+/* The radio inside an option card is a flex item. Without an explicit size and
+   align-self it inherits the default `stretch` and renders 13px wide by the full
+   height of the card - which looks like a rendering fault and is an awkward
+   target. Caught by the responsive audit. */
+.sl-option input[type="radio"],
+.sl-option input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  align-self: flex-start;
+  accent-color: var(--c-ink);
+  cursor: pointer;
+}
+
+/* =============================================================================
+   6. NAVIGATION
+   ========================================================================== */
+.sl-nav {
+  padding: var(--s-lg) 0;
+  border-bottom: 1px solid transparent;
+}
+
+.sl-nav-dark {
+  background-color: var(--c-canvas-night);
+  color: var(--c-on-dark);
+  border-bottom-color: var(--c-hairline-dark);
+}
+
+.sl-nav-light {
+  background-color: var(--c-canvas-light);
+  color: var(--c-ink);
+  border-bottom-color: var(--c-hairline-light);
+}
+
+.sl-nav-sticky { position: sticky; top: 0; z-index: 1030; }
+
+.sl-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-sm);
+  font-family: var(--f-display);
+  font-variation-settings: "opsz" 24;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -.2px;
+  text-decoration: none;
+  color: inherit;
+}
+.sl-brand:hover { color: inherit; }
+
+.sl-brand-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--r-sm);
+  background-color: var(--c-aloe-10);
+  color: var(--c-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+  flex: 0 0 auto;
+}
+
+.sl-navlink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-xs);
+  /* .sl-navlink is used on both <a> and <button>. A <button> carries the
+     browser's default face colour and border, which rendered the Categories
+     dropdown as a grey chip on the black nav. Reset both. */
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: var(--s-sm) var(--s-md);
+  font-size: 15px;
+  font-weight: 420;
+  color: inherit;
+  text-decoration: none;
+  border-radius: var(--r-pill);
+  transition: background-color var(--t-fast) var(--ease), opacity var(--t-fast) var(--ease);
+}
+.sl-nav-dark .sl-navlink:hover  { background-color: rgba(255,255,255,.1); color: var(--c-on-dark); }
+.sl-nav-light .sl-navlink:hover { background-color: var(--c-shade-30); color: var(--c-ink); }
+
+.sl-navlink.active { font-weight: 550; }
+.sl-navlink.dropdown-toggle::after { margin-left: 2px; vertical-align: middle; }
+.sl-nav-dark .sl-navlink.active  { background-color: rgba(255,255,255,.14); }
+.sl-nav-light .sl-navlink.active { background-color: var(--c-shade-30); }
+
+.sl-cart-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: var(--r-pill);
+  background-color: var(--c-aloe-10);
+  color: var(--c-ink);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* =============================================================================
+   7. FOOTER
+   ========================================================================== */
+.sl-footer-dark {
+  background-color: var(--c-canvas-night);
+  color: var(--c-on-dark);
+  padding: var(--s-huge) 0 var(--s-xl);
+}
+
+.sl-footer-light {
+  background-color: var(--c-canvas-light);
+  color: var(--c-ink);
+  padding: var(--s-huge) 0 var(--s-xl);
+  border-top: 1px solid var(--c-hairline-light);
+}
+
+.sl-footer-heading {
+  font-size: 12px;
+  font-weight: 550;
+  letter-spacing: .72px;
+  text-transform: uppercase;
+  margin-bottom: var(--s-lg);
+  color: var(--c-shade-40);
+}
+
+/* Muted cool tones with a persistent underline - the reference asks for the
+   underline, and it is also what keeps these links at an accessible contrast. */
+.sl-footer-link {
+  display: block;
+  padding: 6px 0;
+  font-size: 14px;
+  color: var(--c-link-cool-3);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.sl-footer-link:hover { color: var(--c-on-dark); }
+
+.sl-footer-light .sl-footer-link { color: var(--c-shade-50); }
+.sl-footer-light .sl-footer-link:hover { color: var(--c-ink); }
+.sl-footer-light .sl-footer-heading { color: var(--c-shade-60); }
+
+/* =============================================================================
+   8. PRODUCT CARDS
+   ========================================================================== */
+.sl-product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--c-canvas-light);
+  border: 1px solid var(--c-hairline-light);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow var(--t-normal) var(--ease), border-color var(--t-normal) var(--ease);
+}
+.sl-product-card:hover { box-shadow: var(--e-3); border-color: transparent; color: inherit; }
+
+.sl-product-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: #f4f4f5;
+}
+.sl-product-media img,
+.sl-product-media svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--t-normal) var(--ease);
+}
+.sl-product-card:hover .sl-product-media img { transform: scale(1.02); }
+
+.sl-product-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-sm);
+  padding: var(--s-lg);
+  flex: 1 1 auto;
+}
+
+.sl-product-title {
+  font-size: 16px;
+  font-weight: 550;
+  line-height: 1.35;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.sl-product-price { font-size: 20px; font-weight: 550; line-height: 1.2; }
+.sl-product-compare {
+  font-size: 14px;
+  color: var(--c-shade-50);
+  text-decoration: line-through;
+  margin-left: var(--s-sm);
+}
+
+.sl-product-meta { font-size: 13px; color: var(--c-shade-50); }
+
+.sl-product-flags {
+  position: absolute;
+  top: var(--s-md);
+  left: var(--s-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-xs);
+}
+
+/* Cinematic variant - image is the content, minimal chrome. */
+.sl-product-card-dark {
+  background-color: var(--c-canvas-night-el);
+  border-color: var(--c-hairline-dark);
+  color: var(--c-on-dark);
+}
+.sl-product-card-dark:hover { box-shadow: var(--e-2); border-color: var(--c-hairline-dark); color: var(--c-on-dark); }
+.sl-product-card-dark .sl-product-meta { color: var(--c-shade-40); }
+.sl-product-card-dark .sl-product-media { background-color: #111; }
+
+/* =============================================================================
+   9. STAT TILES, TABLES, TIMELINE
+   ========================================================================== */
+.sl-stat {
+  background-color: var(--c-canvas-light);
+  border: 1px solid var(--c-hairline-light);
+  border-radius: var(--r-lg);
+  padding: var(--s-xl);
+}
+.sl-stat-label { font-size: 12px; font-weight: 400; letter-spacing: .72px; text-transform: uppercase; color: var(--c-shade-50); }
+.sl-stat-value {
+  font-family: var(--f-display);
+  font-variation-settings: "opsz" 32;
+  font-size: 36px;
+  font-weight: 330;
+  line-height: 1.1;
+  margin-top: var(--s-sm);
+}
+.sl-stat-delta { font-size: 13px; font-weight: 500; margin-top: var(--s-xs); }
+.sl-stat-delta-up   { color: var(--c-status-success-fg); }
+.sl-stat-delta-down { color: var(--c-status-danger-fg); }
+
+.sl-table { width: 100%; border-collapse: collapse; }
+.sl-table th,
+.sl-table td {
+  padding: var(--s-md) var(--s-lg);
+  text-align: left;
+  border-bottom: 1px solid var(--c-hairline-light);
+  vertical-align: middle;
+}
+.sl-table th {
+  font-size: 12px;
+  font-weight: 550;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--c-shade-50);
+  white-space: nowrap;
+}
+.sl-table td { font-size: 15px; }
+.sl-table tbody tr:last-child td { border-bottom: none; }
+.sl-table tbody tr:hover { background-color: #fafafa; }
+.sl-table .sl-num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.sl-timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+.sl-timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background-color: var(--c-shade-30);
+}
+.sl-timeline-item { position: relative; padding-left: var(--s-xxl); padding-bottom: var(--s-xl); }
+.sl-timeline-item:last-child { padding-bottom: 0; }
+.sl-timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--c-canvas-light);
+  border: 3px solid var(--c-shade-30);
+}
+.sl-timeline-item.is-done::before    { border-color: var(--c-status-success-fg); background-color: var(--c-status-success-bg); }
+.sl-timeline-item.is-current::before { border-color: var(--c-ink); background-color: var(--c-ink); }
+
+/* =============================================================================
+   10. EMPTY, LOADING AND ERROR STATES
+   Every data-driven screen defines all four (NFR-USA-03).
+   ========================================================================== */
+.sl-empty {
+  text-align: center;
+  padding: var(--s-huge) var(--s-xl);
+  border: 1px dashed var(--c-hairline-light);
+  border-radius: var(--r-lg);
+  background-color: var(--c-canvas-light);
+}
+.sl-empty-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto var(--s-lg);
+  border-radius: var(--r-pill);
+  background-color: var(--c-shade-30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-shade-60);
+}
+.sl-empty-title { font-size: 20px; font-weight: 550; margin-bottom: var(--s-sm); }
+.sl-empty-text  { color: var(--c-shade-50); max-width: 44ch; margin: 0 auto var(--s-xl); }
+
+.track-cinematic .sl-empty {
+  background-color: var(--c-canvas-night-el);
+  border-color: var(--c-hairline-dark);
+}
+.track-cinematic .sl-empty-text { color: var(--c-shade-40); }
+
+.sl-skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--c-shade-30);
+  border-radius: var(--r-md);
+}
+.sl-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
+  animation: sl-shimmer 1.4s infinite;
+}
+.track-cinematic .sl-skeleton { background-color: #1a1a1a; }
+.track-cinematic .sl-skeleton::after {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+}
+@keyframes sl-shimmer { 100% { transform: translateX(100%); } }
+
+.sl-skeleton-text { height: 12px; margin-bottom: var(--s-sm); }
+.sl-skeleton-title { height: 20px; width: 60%; margin-bottom: var(--s-md); }
+.sl-skeleton-media { aspect-ratio: 4 / 3; border-radius: 0; }
+
+/* Inline alert, used for flash messages and form-level errors. */
+.sl-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-md);
+  padding: var(--s-lg);
+  border-radius: var(--r-md);
+  font-size: 15px;
+  line-height: 1.5;
+  background-color: var(--c-status-neutral-bg);
+  color: var(--c-status-neutral-fg);
+}
+.sl-alert-success { background-color: var(--c-status-success-bg); color: var(--c-status-success-fg); }
+.sl-alert-info    { background-color: var(--c-status-info-bg);    color: var(--c-status-info-fg); }
+.sl-alert-warn    { background-color: var(--c-status-warn-bg);    color: var(--c-status-warn-fg); }
+.sl-alert-danger  { background-color: var(--c-status-danger-bg);  color: var(--c-status-danger-fg); }
+
+/* =============================================================================
+   11. MISC
+   ========================================================================== */
+.sl-rating { display: inline-flex; align-items: center; gap: 2px; color: #0a0a0a; }
+.sl-rating svg { width: 15px; height: 15px; }
+.sl-rating-empty { color: var(--c-shade-30); }
+
+/* The rating inherits ink, which is invisible on the cinematic canvas. */
+.track-cinematic .sl-rating { color: var(--c-on-dark); }
+.track-cinematic .sl-rating-empty { color: var(--c-shade-60); }
+
+.sl-divider { height: 1px; background-color: var(--c-hairline-light); border: 0; margin: var(--s-xl) 0; }
+.track-cinematic .sl-divider { background-color: var(--c-hairline-dark); }
+
+.sl-link-quiet { color: var(--c-shade-50); text-decoration: underline; text-underline-offset: 3px; }
+.sl-link-quiet:hover { color: var(--c-ink); }
+
+.sl-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-pill);
+  background-color: var(--c-shade-30);
+  color: var(--c-shade-70);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  flex: 0 0 auto;
+}
+
+/* A clearly-labelled development notice. Used anywhere the UI would otherwise
+   imply something works that does not yet (mock data, unconnected channels).
+   Deliberately unmissable: it must never be mistaken for real functionality. */
+.sl-devnote {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-sm);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .3px;
+  padding: var(--s-sm) var(--s-md);
+  border-radius: var(--r-xs);
+  background-color: #fdf0c4;
+  color: #4a3508;
+  border-left: 3px solid #4a3508;
+}
+
+.sl-devnote-dark {
+  background-color: rgba(253,240,196,.12);
+  color: #fdf0c4;
+  border-left-color: #fdf0c4;
+}
+
+/* Grid helpers used by listing pages. */
+.sl-grid {
+  display: grid;
+  gap: var(--s-xl);
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+@media (min-width: 576px)  { .sl-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 768px)  { .sl-grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .sl-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 768px)  { .sl-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .sl-grid-4 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1440px) { .sl-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* Data tables reflow into stacked cards on phones rather than scrolling
+   sideways - a horizontally scrolling order table on a phone is unusable. */
+@media (max-width: 767.98px) {
+  .sl-table-reflow thead { display: none; }
+  .sl-table-reflow tbody tr {
+    display: block;
+    border: 1px solid var(--c-hairline-light);
+    border-radius: var(--r-lg);
+    padding: var(--s-md);
+    margin-bottom: var(--s-md);
+    background-color: var(--c-canvas-light);
+  }
+  .sl-table-reflow tbody td {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-lg);
+    padding: var(--s-sm) 0;
+    border-bottom: none;
+    text-align: right;
+    /* A long value (a timestamp, an avatar cell, a wrapped badge) must be able
+       to move onto its own line instead of spilling off the side of a phone.
+       Caught by the responsive audit. */
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  .sl-table-reflow tbody td > * {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .sl-table-reflow tbody td::before {
+    content: attr(data-label);
+    font-size: 12px;
+    font-weight: 550;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: var(--c-shade-50);
+    text-align: left;
+    flex: 0 0 auto;
+    max-width: 45%;
+  }
+  .sl-table-reflow .sl-num { text-align: right; }
+}
+
+/* =============================================================================
+   12. DASHBOARD SHELL (Phase 1b)
+   Sidebar pinned from 1024px, Bootstrap offcanvas below. Transactional track
+   only - no dashboard ever uses the cinematic canvas.
+   ========================================================================== */
+.sl-preview-bar {
+  background-color: var(--c-status-warn-bg);
+  color: var(--c-status-warn-fg);
+  border-bottom: 1px solid rgba(74, 53, 8, .18);
+  padding: var(--s-sm) 0;
+  position: relative;
+  z-index: 1035;
+}
+.sl-preview-bar .sl-chip { background-color: rgba(74, 53, 8, .12); color: var(--c-status-warn-fg); }
+.sl-preview-bar .sl-chip:hover { background-color: rgba(74, 53, 8, .22); color: var(--c-status-warn-fg); }
+.sl-preview-bar .sl-chip.is-active { background-color: var(--c-status-warn-fg); color: var(--c-status-warn-bg); }
+
+.sl-dash { display: block; }
+
+.sl-dash-side {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 264px;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: var(--c-canvas-light);
+  border-right: 1px solid var(--c-hairline-light);
+  padding: var(--s-xl) var(--s-lg);
+  z-index: 1030;
+}
+
+.sl-dash-main { min-width: 0; }
+.sl-dash-body { padding-block: var(--s-xl) var(--s-huge); }
+
+@media (min-width: 1024px) {
+  .sl-dash-side { top: 41px; height: calc(100vh - 41px); }
+  .sl-dash-main { margin-left: 264px; }
+}
+
+/* Sidebar navigation */
+.sl-side-group { margin-bottom: var(--s-xl); }
+.sl-side-heading {
+  font-size: 11px;
+  font-weight: 550;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--c-shade-50);
+  margin-bottom: var(--s-sm);
+  padding-inline: var(--s-md);
+}
+
+.sl-side-link {
+  display: flex;
+  align-items: center;
+  gap: var(--s-md);
+  /* Used on both <a> and <button> (Log out). A <button> carries the browser's
+     default face colour, border and font - reset all three. Same class of bug
+     as .sl-navlink had. */
+  background: transparent;
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  min-height: 44px;
+  padding: var(--s-sm) var(--s-md);
+  border-radius: var(--r-md);
+  font-size: 15px;
+  font-weight: 420;
+  color: #0a0a0a;
+  text-decoration: none;
+  transition: background-color var(--t-fast) var(--ease);
+}
+.sl-side-link:hover { background-color: #f4f4f5; color: #0a0a0a; }
+.sl-side-link.is-current {
+  background-color: var(--c-aloe-10);
+  font-weight: 550;
+  color: var(--c-ink);
+}
+.sl-side-link .sl-side-icon { flex: 0 0 auto; color: var(--c-shade-60); }
+.sl-side-link.is-current .sl-side-icon { color: var(--c-ink); }
+.sl-side-label { flex: 1 1 auto; min-width: 0; }
+
+.sl-side-count {
+  flex: 0 0 auto;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: var(--r-pill);
+  background-color: var(--c-shade-30);
+  color: var(--c-shade-70);
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.sl-side-link.is-current .sl-side-count { background-color: var(--c-ink); color: var(--c-on-primary); }
+
+/* Top bar */
+.sl-dash-top {
+  background-color: var(--c-canvas-light);
+  border-bottom: 1px solid var(--c-hairline-light);
+  padding: var(--s-md) 0;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+
+/* Page header */
+.sl-page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-lg);
+  margin-bottom: var(--s-xl);
+}
+.sl-page-actions { display: flex; flex-wrap: wrap; gap: var(--s-sm); }
+
+/* Toolbar above a list */
+.sl-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--s-md);
+  padding: var(--s-lg);
+  background-color: var(--c-canvas-light);
+  border: 1px solid var(--c-hairline-light);
+  border-radius: var(--r-lg);
+  margin-bottom: var(--s-lg);
+}
+.sl-toolbar .sl-field { margin-bottom: 0; }
+
+/* Definition list used on every detail panel */
+.sl-dl { margin: 0; }
+.sl-dl > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s-md);
+  padding: var(--s-sm) 0;
+  border-bottom: 1px solid var(--c-hairline-light);
+}
+.sl-dl > div:last-child { border-bottom: 0; }
+.sl-dl dt { font-size: 14px; color: var(--c-shade-50); margin: 0; }
+.sl-dl dd { font-size: 15px; margin: 0; text-align: right; }
+
+/* Tab strip */
+.sl-tabs {
+  display: flex;
+  gap: var(--s-xs);
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--c-hairline-light);
+  margin-bottom: var(--s-xl);
+}
+.sl-tab {
+  padding: var(--s-md) var(--s-lg);
+  min-height: 44px;
+  font-size: 15px;
+  color: var(--c-shade-50);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-sm);
+}
+.sl-tab:hover { color: #0a0a0a; }
+.sl-tab.is-current { color: var(--c-ink); font-weight: 550; border-bottom-color: var(--c-ink); }
+
+/* Message thread */
+.sl-msg { display: flex; gap: var(--s-md); padding: var(--s-lg) 0; }
+.sl-msg-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  background-color: #f7f7f8;
+  border-radius: var(--r-lg);
+  padding: var(--s-lg);
+}
+.sl-msg-mine .sl-msg-body { background-color: var(--c-aloe-10); }
+/* Internal notes are filtered out of the customer query in Phase 3 - this tint
+   is a second, visual reminder that the customer must never see them. */
+.sl-msg-internal .sl-msg-body {
+  background-color: var(--c-status-warn-bg);
+  border-left: 3px solid var(--c-status-warn-fg);
+}
+
+/* Big code display: collection and delivery codes */
+.sl-code-display {
+  font-family: var(--f-mono);
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: 6px;
+  padding: var(--s-lg) var(--s-xl);
+  background-color: var(--c-aloe-10);
+  border-radius: var(--r-lg);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+
+/* A wide table must scroll inside its own card, not push the whole page
+   sideways. Below 768px the reflow to stacked cards takes over instead, so the
+   scroll container is switched off there. Caught by the responsive audit. */
+.sl-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (max-width: 767.98px) {
+  .sl-table-scroll { overflow-x: visible; }
+}
+
+/* Standalone links sitting beside a heading need to clear the 24px target
+   minimum; links inside running prose are exempt. */
+.sl-link-more {
+  display: inline-block;
+  padding-block: 4px;
+  color: var(--c-shade-50);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sl-link-more:hover { color: var(--c-ink); }
+
+
+/* Flex items default to min-width:auto, which stops them shrinking below their
+   content. Option cards and message headers carry badges whose labels can be
+   long, so they need an explicit floor of zero. */
+.sl-option > *,
+.sl-msg-body > * { min-width: 0; }
+.sl-option { flex-wrap: wrap; }
+
+
+/* A pill stays on one line wherever there is room, but a long label
+   ("Send and mark waiting on customer") must be allowed to wrap on a phone
+   rather than spill off the side. Caught by the responsive audit. */
+@media (max-width: 575.98px) {
+  .sl-btn { white-space: normal; }
+}
+.sl-btn { max-width: 100%; }

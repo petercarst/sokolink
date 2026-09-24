@@ -1,0 +1,315 @@
+<?php
+
+declare(strict_types=1);
+
+/* =============================================================================
+ *  MOCK DATA - PHASE 1 ONLY
+ * -----------------------------------------------------------------------------
+ *  Replaced in Phase 4 by:
+ *    App\Repositories\ProductRepository::listForCatalog(CatalogFilter $f)
+ *    App\Repositories\ProductRepository::findBySlug(string $slug)
+ *    App\Repositories\ProductRepository::search(string $q, CatalogFilter $f)
+ *
+ *  CONTRACT - one row per product. Every key below must be produced by the real
+ *  query; the view does no further computation.
+ *
+ *    id                       int
+ *    slug                     string  unique
+ *    name                     string
+ *    brand                    string
+ *    sku                      string
+ *    category_id / _slug / _name
+ *    parent_category_slug     string
+ *    description              string  plain text, escaped at render
+ *    price                    string  DECIMAL(12,2) as a string - never a float
+ *    compare_at_price         string|null
+ *    unit                     string  'bottle', 'kg', 'pack'
+ *    pack_size                string  human label, e.g. "5 L"
+ *    seller_id / _name / _slug
+ *    store_ids                list<int>   stores holding stock
+ *    qty_available            int         SUM across those stores
+ *    stock_state              'in'|'low'|'out'
+ *    rating                   float
+ *    review_count             int
+ *    fulfilment               list<string> subset of ['pickup','delivery']
+ *    is_consumable            bool     feeds the reorder engine (FR-CAT-11)
+ *    typical_consumption_days int|null seller hint (FR-CRM-09)
+ *    tone                     string   placeholder-image tone key, PHASE 1 ONLY
+ *    badges                   list<string>
+ *
+ *  Source tables (Phase 2): products, product_images, inventory, categories,
+ *  sellers, stores, reviews (aggregate).
+ * ===========================================================================*/
+
+return [
+    [
+        'id' => 101, 'slug' => 'alizeti-sunflower-oil-5l', 'name' => 'Alizeti Pure Sunflower Cooking Oil',
+        'brand' => 'Alizeti', 'sku' => 'ALZ-OIL-5L',
+        'category_id' => 11, 'category_slug' => 'cooking-oil', 'category_name' => 'Cooking Oil & Fats',
+        'parent_category_slug' => 'food-cupboard',
+        'description' => 'Cold-pressed sunflower oil in a 5 litre jerrycan. Light flavour, high smoke point, suited to everyday frying and deep frying. Sold by weight-checked jerrycan with a tamper-evident seal.',
+        'price' => '28500.00', 'compare_at_price' => '31000.00',
+        'unit' => 'jerrycan', 'pack_size' => '5 L',
+        'seller_id' => 1, 'seller_name' => 'Mama Lishe Provisions', 'seller_slug' => 'mama-lishe',
+        'store_ids' => [1, 2], 'qty_available' => 64, 'stock_state' => 'in',
+        'rating' => 4.7, 'review_count' => 214,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 45,
+        'tone' => 'amber', 'badges' => ['Best seller'],
+    ],
+    [
+        'id' => 102, 'slug' => 'mbeya-white-rice-25kg', 'name' => 'Mbeya Premium White Rice',
+        'brand' => 'Mbeya Harvest', 'sku' => 'MBH-RCE-25',
+        'category_id' => 12, 'category_slug' => 'rice-grains', 'category_name' => 'Rice & Grains',
+        'parent_category_slug' => 'food-cupboard',
+        'description' => 'Long-grain white rice grown in the Mbeya highlands, double-sifted and stone-free. 25 kg sack, suitable for households buying in bulk or for small catering operations.',
+        'price' => '92000.00', 'compare_at_price' => null,
+        'unit' => 'sack', 'pack_size' => '25 kg',
+        'seller_id' => 2, 'seller_name' => 'Duka Kuu Wholesalers', 'seller_slug' => 'duka-kuu',
+        'store_ids' => [3], 'qty_available' => 18, 'stock_state' => 'in',
+        'rating' => 4.8, 'review_count' => 96,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 60,
+        'tone' => 'sand', 'badges' => [],
+    ],
+    [
+        'id' => 103, 'slug' => 'sembe-maize-flour-10kg', 'name' => 'Sembe Fine Maize Flour',
+        'brand' => 'Nyumbani', 'sku' => 'NYB-SMB-10',
+        'category_id' => 13, 'category_slug' => 'flour', 'category_name' => 'Flour & Baking',
+        'parent_category_slug' => 'food-cupboard',
+        'description' => 'Finely milled white maize flour for ugali and porridge. Milled weekly and date-stamped on the bag.',
+        'price' => '24000.00', 'compare_at_price' => null,
+        'unit' => 'bag', 'pack_size' => '10 kg',
+        'seller_id' => 1, 'seller_name' => 'Mama Lishe Provisions', 'seller_slug' => 'mama-lishe',
+        'store_ids' => [1, 2], 'qty_available' => 7, 'stock_state' => 'low',
+        'rating' => 4.5, 'review_count' => 143,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 30,
+        'tone' => 'cream', 'badges' => [],
+    ],
+    [
+        'id' => 104, 'slug' => 'kilombero-brown-sugar-2kg', 'name' => 'Kilombero Brown Sugar',
+        'brand' => 'Kilombero', 'sku' => 'KLB-SGR-2',
+        'category_id' => 14, 'category_slug' => 'sugar-salt', 'category_name' => 'Sugar, Salt & Spices',
+        'parent_category_slug' => 'food-cupboard',
+        'description' => 'Unrefined brown cane sugar with a light molasses note. 2 kg resealable pack.',
+        'price' => '7800.00', 'compare_at_price' => '8500.00',
+        'unit' => 'pack', 'pack_size' => '2 kg',
+        'seller_id' => 2, 'seller_name' => 'Duka Kuu Wholesalers', 'seller_slug' => 'duka-kuu',
+        'store_ids' => [3], 'qty_available' => 140, 'stock_state' => 'in',
+        'rating' => 4.4, 'review_count' => 67,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 35,
+        'tone' => 'clay', 'badges' => ['Reduced'],
+    ],
+    [
+        'id' => 105, 'slug' => 'chai-bora-loose-leaf-500g', 'name' => 'Chai Bora Loose Leaf Tea',
+        'brand' => 'Chai Bora', 'sku' => 'CHB-TEA-500',
+        'category_id' => 15, 'category_slug' => 'tea-coffee', 'category_name' => 'Tea & Coffee',
+        'parent_category_slug' => 'food-cupboard',
+        'description' => 'Strong black loose-leaf tea from the Usambara estates. Brews dark and takes milk well.',
+        'price' => '6200.00', 'compare_at_price' => null,
+        'unit' => 'pack', 'pack_size' => '500 g',
+        'seller_id' => 1, 'seller_name' => 'Mama Lishe Provisions', 'seller_slug' => 'mama-lishe',
+        'store_ids' => [1], 'qty_available' => 52, 'stock_state' => 'in',
+        'rating' => 4.9, 'review_count' => 188,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 40,
+        'tone' => 'forest', 'badges' => ['Top rated'],
+    ],
+    [
+        'id' => 106, 'slug' => 'jamaa-laundry-soap-bar-6pk', 'name' => 'Jamaa Laundry Soap Bars',
+        'brand' => 'Jamaa', 'sku' => 'JMA-LSB-6',
+        'category_id' => 21, 'category_slug' => 'laundry', 'category_name' => 'Laundry',
+        'parent_category_slug' => 'household',
+        'description' => 'Multipurpose blue laundry bars for hand washing. Pack of six 800 g bars.',
+        'price' => '11400.00', 'compare_at_price' => null,
+        'unit' => 'pack', 'pack_size' => '6 x 800 g',
+        'seller_id' => 2, 'seller_name' => 'Duka Kuu Wholesalers', 'seller_slug' => 'duka-kuu',
+        'store_ids' => [3], 'qty_available' => 0, 'stock_state' => 'out',
+        'rating' => 4.2, 'review_count' => 54,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 50,
+        'tone' => 'slate', 'badges' => [],
+    ],
+    [
+        'id' => 107, 'slug' => 'safi-multi-surface-cleaner-2l', 'name' => 'Safi Multi-Surface Cleaner',
+        'brand' => 'Safi', 'sku' => 'SAF-MSC-2L',
+        'category_id' => 22, 'category_slug' => 'cleaning', 'category_name' => 'Surface Cleaning',
+        'parent_category_slug' => 'household',
+        'description' => 'Concentrated citrus cleaner for floors, tiles and worktops. Dilute one capful per five litres of water.',
+        'price' => '9800.00', 'compare_at_price' => null,
+        'unit' => 'bottle', 'pack_size' => '2 L',
+        'seller_id' => 1, 'seller_name' => 'Mama Lishe Provisions', 'seller_slug' => 'mama-lishe',
+        'store_ids' => [1, 2], 'qty_available' => 31, 'stock_state' => 'in',
+        'rating' => 4.1, 'review_count' => 39,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 55,
+        'tone' => 'mint', 'badges' => [],
+    ],
+    [
+        'id' => 108, 'slug' => 'karatasi-kitchen-roll-4pk', 'name' => 'Karatasi Kitchen Roll',
+        'brand' => 'Karatasi', 'sku' => 'KRT-KRL-4',
+        'category_id' => 23, 'category_slug' => 'paper', 'category_name' => 'Paper & Disposables',
+        'parent_category_slug' => 'household',
+        'description' => 'Two-ply absorbent kitchen roll, four rolls per pack.',
+        'price' => '8600.00', 'compare_at_price' => null,
+        'unit' => 'pack', 'pack_size' => '4 rolls',
+        'seller_id' => 2, 'seller_name' => 'Duka Kuu Wholesalers', 'seller_slug' => 'duka-kuu',
+        'store_ids' => [3], 'qty_available' => 88, 'stock_state' => 'in',
+        'rating' => 3.9, 'review_count' => 22,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 28,
+        'tone' => 'cream', 'badges' => [],
+    ],
+    [
+        'id' => 109, 'slug' => 'mwangaza-bath-soap-4pk', 'name' => 'Mwangaza Moisturising Bath Soap',
+        'brand' => 'Mwangaza', 'sku' => 'MWG-BSP-4',
+        'category_id' => 31, 'category_slug' => 'soap-bath', 'category_name' => 'Soap & Bath',
+        'parent_category_slug' => 'personal-care',
+        'description' => 'Glycerine-enriched bath soap with a light coconut scent. Pack of four 175 g bars.',
+        'price' => '9200.00', 'compare_at_price' => '10400.00',
+        'unit' => 'pack', 'pack_size' => '4 x 175 g',
+        'seller_id' => 1, 'seller_name' => 'Mama Lishe Provisions', 'seller_slug' => 'mama-lishe',
+        'store_ids' => [1, 2], 'qty_available' => 46, 'stock_state' => 'in',
+        'rating' => 4.6, 'review_count' => 121,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 42,
+        'tone' => 'rose', 'badges' => ['Reduced'],
+    ],
+    [
+        'id' => 110, 'slug' => 'nywele-shea-hair-food-250ml', 'name' => 'Nywele Shea Hair Food',
+        'brand' => 'Nywele', 'sku' => 'NYW-SHF-250',
+        'category_id' => 32, 'category_slug' => 'hair-care', 'category_name' => 'Hair Care',
+        'parent_category_slug' => 'personal-care',
+        'description' => 'Shea butter and coconut hair dressing for dry and coiled hair. 250 ml jar.',
+        'price' => '13500.00', 'compare_at_price' => null,
+        'unit' => 'jar', 'pack_size' => '250 ml',
+        'seller_id' => 1, 'seller_name' => 'Mama Lishe Provisions', 'seller_slug' => 'mama-lishe',
+        'store_ids' => [1], 'qty_available' => 12, 'stock_state' => 'low',
+        'rating' => 4.7, 'review_count' => 78,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 70,
+        'tone' => 'clay', 'badges' => [],
+    ],
+    [
+        'id' => 111, 'slug' => 'meno-safi-toothpaste-150ml', 'name' => 'Meno Safi Fluoride Toothpaste',
+        'brand' => 'Meno Safi', 'sku' => 'MNS-TPS-150',
+        'category_id' => 33, 'category_slug' => 'oral-care', 'category_name' => 'Oral Care',
+        'parent_category_slug' => 'personal-care',
+        'description' => 'Everyday fluoride toothpaste with a mild mint flavour. 150 ml tube.',
+        'price' => '4600.00', 'compare_at_price' => null,
+        'unit' => 'tube', 'pack_size' => '150 ml',
+        'seller_id' => 2, 'seller_name' => 'Duka Kuu Wholesalers', 'seller_slug' => 'duka-kuu',
+        'store_ids' => [3], 'qty_available' => 210, 'stock_state' => 'in',
+        'rating' => 4.3, 'review_count' => 64,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 45,
+        'tone' => 'mint', 'badges' => [],
+    ],
+    [
+        'id' => 112, 'slug' => 'bustani-tomatoes-1kg', 'name' => 'Vine Tomatoes',
+        'brand' => 'Bustani Fresh', 'sku' => 'BST-TOM-1',
+        'category_id' => 41, 'category_slug' => 'vegetables', 'category_name' => 'Vegetables',
+        'parent_category_slug' => 'fresh',
+        'description' => 'Firm vine tomatoes picked the same morning. Sold by the kilogram, chiller-held until collection.',
+        'price' => '3200.00', 'compare_at_price' => null,
+        'unit' => 'kg', 'pack_size' => '1 kg',
+        'seller_id' => 3, 'seller_name' => 'Bustani Fresh', 'seller_slug' => 'bustani-fresh',
+        'store_ids' => [4], 'qty_available' => 40, 'stock_state' => 'in',
+        'rating' => 4.5, 'review_count' => 31,
+        'fulfilment' => ['pickup'],
+        'is_consumable' => true, 'typical_consumption_days' => 7,
+        'tone' => 'rose', 'badges' => ['Pickup only'],
+    ],
+    [
+        'id' => 113, 'slug' => 'bustani-bananas-bunch', 'name' => 'Sweet Bananas',
+        'brand' => 'Bustani Fresh', 'sku' => 'BST-BAN-B',
+        'category_id' => 42, 'category_slug' => 'fruit', 'category_name' => 'Fruit',
+        'parent_category_slug' => 'fresh',
+        'description' => 'Small sweet bananas sold by the bunch, roughly 1.2 kg.',
+        'price' => '2800.00', 'compare_at_price' => null,
+        'unit' => 'bunch', 'pack_size' => 'approx 1.2 kg',
+        'seller_id' => 3, 'seller_name' => 'Bustani Fresh', 'seller_slug' => 'bustani-fresh',
+        'store_ids' => [4], 'qty_available' => 3, 'stock_state' => 'low',
+        'rating' => 4.2, 'review_count' => 18,
+        'fulfilment' => ['pickup'],
+        'is_consumable' => true, 'typical_consumption_days' => 6,
+        'tone' => 'amber', 'badges' => ['Pickup only'],
+    ],
+    [
+        'id' => 114, 'slug' => 'ziwa-fresh-milk-1l', 'name' => 'Ziwa Fresh Full-Cream Milk',
+        'brand' => 'Ziwa', 'sku' => 'ZWA-MLK-1',
+        'category_id' => 43, 'category_slug' => 'dairy-eggs', 'category_name' => 'Dairy & Eggs',
+        'parent_category_slug' => 'fresh',
+        'description' => 'Pasteurised full-cream milk, 1 litre carton. Chiller-held; collect within four hours.',
+        'price' => '2400.00', 'compare_at_price' => null,
+        'unit' => 'carton', 'pack_size' => '1 L',
+        'seller_id' => 3, 'seller_name' => 'Bustani Fresh', 'seller_slug' => 'bustani-fresh',
+        'store_ids' => [4], 'qty_available' => 60, 'stock_state' => 'in',
+        'rating' => 4.6, 'review_count' => 44,
+        'fulfilment' => ['pickup'],
+        'is_consumable' => true, 'typical_consumption_days' => 4,
+        'tone' => 'cream', 'badges' => ['Pickup only'],
+    ],
+    [
+        'id' => 115, 'slug' => 'mtoto-nappies-size4-50pk', 'name' => 'Mtoto Dry Nappies Size 4',
+        'brand' => 'Mtoto', 'sku' => 'MTO-NAP-4',
+        'category_id' => 51, 'category_slug' => 'nappies', 'category_name' => 'Nappies & Wipes',
+        'parent_category_slug' => 'baby',
+        'description' => 'Size 4 (7-18 kg) disposable nappies with a wetness indicator. Jumbo pack of 50.',
+        'price' => '34000.00', 'compare_at_price' => '37500.00',
+        'unit' => 'pack', 'pack_size' => '50 nappies',
+        'seller_id' => 2, 'seller_name' => 'Duka Kuu Wholesalers', 'seller_slug' => 'duka-kuu',
+        'store_ids' => [3], 'qty_available' => 26, 'stock_state' => 'in',
+        'rating' => 4.7, 'review_count' => 152,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 18,
+        'tone' => 'sky', 'badges' => ['Reduced', 'Best seller'],
+    ],
+    [
+        'id' => 116, 'slug' => 'mtoto-cereal-400g', 'name' => 'Mtoto Multigrain Baby Cereal',
+        'brand' => 'Mtoto', 'sku' => 'MTO-CRL-400',
+        'category_id' => 52, 'category_slug' => 'baby-food', 'category_name' => 'Baby Food',
+        'parent_category_slug' => 'baby',
+        'description' => 'Iron-fortified multigrain cereal for infants from six months. 400 g tin.',
+        'price' => '12800.00', 'compare_at_price' => null,
+        'unit' => 'tin', 'pack_size' => '400 g',
+        'seller_id' => 2, 'seller_name' => 'Duka Kuu Wholesalers', 'seller_slug' => 'duka-kuu',
+        'store_ids' => [3], 'qty_available' => 34, 'stock_state' => 'in',
+        'rating' => 4.4, 'review_count' => 58,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 21,
+        'tone' => 'sand', 'badges' => [],
+    ],
+    [
+        'id' => 117, 'slug' => 'chemchem-water-12x1-5l', 'name' => 'Chemchem Drinking Water',
+        'brand' => 'Chemchem', 'sku' => 'CHM-WTR-12',
+        'category_id' => 61, 'category_slug' => 'water', 'category_name' => 'Water',
+        'parent_category_slug' => 'beverages',
+        'description' => 'Purified drinking water, twelve 1.5 litre bottles per shrink-wrapped pack.',
+        'price' => '13200.00', 'compare_at_price' => null,
+        'unit' => 'pack', 'pack_size' => '12 x 1.5 L',
+        'seller_id' => 1, 'seller_name' => 'Mama Lishe Provisions', 'seller_slug' => 'mama-lishe',
+        'store_ids' => [1, 2], 'qty_available' => 95, 'stock_state' => 'in',
+        'rating' => 4.5, 'review_count' => 83,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 12,
+        'tone' => 'sky', 'badges' => [],
+    ],
+    [
+        'id' => 118, 'slug' => 'embe-mango-juice-1l', 'name' => 'Embe Mango Juice',
+        'brand' => 'Embe', 'sku' => 'EMB-JCE-1',
+        'category_id' => 63, 'category_slug' => 'juice', 'category_name' => 'Juice',
+        'parent_category_slug' => 'beverages',
+        'description' => 'Mango juice from concentrate with no added sugar. 1 litre carton.',
+        'price' => '4200.00', 'compare_at_price' => null,
+        'unit' => 'carton', 'pack_size' => '1 L',
+        'seller_id' => 2, 'seller_name' => 'Duka Kuu Wholesalers', 'seller_slug' => 'duka-kuu',
+        'store_ids' => [3], 'qty_available' => 120, 'stock_state' => 'in',
+        'rating' => 4.0, 'review_count' => 27,
+        'fulfilment' => ['pickup', 'delivery'],
+        'is_consumable' => true, 'typical_consumption_days' => 14,
+        'tone' => 'amber', 'badges' => [],
+    ],
+];

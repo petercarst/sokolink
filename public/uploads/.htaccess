@@ -1,0 +1,24 @@
+# Uploaded files are DATA, never code (NFR-SEC-06).
+#
+# Even though uploads are re-encoded through GD and given random names, this is
+# the backstop: if an attacker ever manages to place a .php file here, Apache
+# must refuse to execute it.
+
+php_flag engine off
+
+<IfModule mod_php.c>
+    php_admin_flag engine off
+</IfModule>
+
+# Serve only the image types we accept, as static files.
+<FilesMatch "\.(?i:php[0-9]?|phtml|phar|phps|inc|cgi|pl|py|asp|aspx|jsp|sh|exe|htaccess)$">
+    Require all denied
+</FilesMatch>
+
+Options -Indexes -ExecCGI
+AddType text/plain .php .phtml .phar .php3 .php4 .php5 .php7 .php8
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set Content-Disposition "inline"
+</IfModule>

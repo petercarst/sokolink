@@ -1,0 +1,12 @@
+{
+  "name": "sokolink-assets",
+  "private": true,
+  "description": "Build-time only. The compiled CSS is committed, so running the app needs no Node.",
+  "scripts": {
+    "build:css": "tailwindcss -i resources/css/tailwind.src.css -o public/assets/css/tailwind.build.css --minify",
+    "watch:css": "tailwindcss -i resources/css/tailwind.src.css -o public/assets/css/tailwind.build.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

@@ -1,0 +1,28 @@
+# Front-controller rewrite: every request that is not a real file or directory
+# is handled by index.php.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Strip a trailing slash (except the site root) so /products/ and /products
+    # are the same page rather than two URLs with the same content.
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.+)/$ $1 [L,R=301]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Directory listings are never wanted.
+Options -Indexes
+
+# Long cache for fingerprint-free static assets is handled in Phase 6; for now
+# keep it short so design iteration is not fought by the browser cache.
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css              "access plus 1 hours"
+    ExpiresByType application/javascript "access plus 1 hours"
+    ExpiresByType image/svg+xml         "access plus 7 days"
+    ExpiresByType font/woff2            "access plus 30 days"
+</IfModule>

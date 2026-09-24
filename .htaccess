@@ -1,0 +1,16 @@
+# Root .htaccess - forwards every request into public/ so that
+# http://localhost/e-commerce/ works on a default XAMPP install.
+#
+# PREFERRED production setup is an Apache vhost whose DocumentRoot is the
+# public/ directory - see docs/INSTALLATION.md. This file is the fallback.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^$ public/ [L]
+    RewriteRule (.*) public/$1 [L]
+</IfModule>
+
+# Defence in depth: even if the rewrite above is disabled, never serve these.
+<FilesMatch "^(\.env.*|composer\.(json|lock)|package(-lock)?\.json|.*\.md|.*\.sql)$">
+    Require all denied
+</FilesMatch>
