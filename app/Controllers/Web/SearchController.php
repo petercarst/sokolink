@@ -21,10 +21,42 @@ use App\Support\View\Present;
 final class SearchController extends Controller
 {
     private const PER_PAGE = 12;
+    private const SUGGEST_LIMIT = 6;
 
     public function __construct(
         private readonly CatalogService $catalog = new CatalogService(),
     ) {
+    }
+
+    /**
+     * Live search: the few best matches as JSON, for the dropdown under the
+     * search box. Same matching as the results page, so what the dropdown
+     * shows is what pressing Enter finds. Under two characters returns
+     * nothing rather than the whole catalogue.
+     */
+    public function suggest(): Response
+    {
+        $query = trim((string) $this->request()->query('q', ''));
+
+        if (mb_strlen($query) < 2) {
+            return Response::json(['query' => $query, 'total' => 0, 'items' => []]);
+        }
+
+        $result = $this->catalog->browse(['q' => $query, 'sort' => 'relevance'], 1, self::SUGGEST_LIMIT);
+
+        $items = array_map(static fn (array $p): array => [
+            'name'   => $p['name'],
+            'seller' => $p['seller_name'],
+            'price'  => money($p['price']),
+            'url'    => route('product.show', ['slug' => $p['slug']]),
+        ], Present::products($result['products']));
+
+        return Response::json([
+            'query'   => $query,
+            'total'   => $result['total'],
+            'items'   => $items,
+            'all_url' => route('search') . '?q=' . rawurlencode($query),
+        ]);
     }
 
     public function index(): Response

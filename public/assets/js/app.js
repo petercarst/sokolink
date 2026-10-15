@@ -8,6 +8,7 @@
 
 import { initCart } from './cart.js';
 import { initFilters } from './filters.js';
+import { initLiveSearch } from './search.js';
 
 /** Prevents a double-click on a submit button creating two of something.
  *  This is a courtesy only - the real protection is the server-side
@@ -124,4 +125,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initOptionCards();
   initCart();
   initFilters();
+  initLiveSearch();
 });

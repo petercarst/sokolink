@@ -36,6 +36,7 @@ Router::get('/category/{slug}',   [CatalogController::class, 'category'], 'catal
 Router::get('/products/{slug}',   [ProductController::class, 'show'],     'product.show');
 Router::get('/store/{slug}',      [StoreController::class, 'show'],       'store.show');
 Router::get('/search',            [SearchController::class, 'index'],     'search');
+Router::get('/search/suggest',    [SearchController::class, 'suggest'],   'search.suggest');
 
 // ---- Basket (transactional track) -----------------------------------------
 // The basket is open to guests: somebody can fill one before they have an

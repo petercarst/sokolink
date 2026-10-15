@@ -65,6 +65,7 @@ $signedIn      = \App\Core\Auth::check();
                     <input class="sl-input <?= $dark ? 'sl-input-dark' : '' ?> tw-pl-10"
                            style="border-radius:var(--r-pill)"
                            type="search" id="nav-search" name="q" placeholder="Search cooking oil, rice, soap..."
+                           data-live-search="<?= e(route('search.suggest')) ?>"
                            value="<?= e((string) \App\Core\Request::current()->query('q', '')) ?>">
                 </div>
             </form>
@@ -118,6 +119,7 @@ $signedIn      = \App\Core\Auth::check();
             <label class="visually-hidden" for="nav-search-m">Search products</label>
             <input class="sl-input <?= $dark ? 'sl-input-dark' : '' ?>" style="border-radius:var(--r-pill)"
                    type="search" id="nav-search-m" name="q" placeholder="Search products..."
+                   data-live-search="<?= e(route('search.suggest')) ?>"
                    value="<?= e((string) \App\Core\Request::current()->query('q', '')) ?>">
         </form>
     </div>

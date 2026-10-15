@@ -1369,3 +1369,75 @@ body:not(.track-cinematic) .sl-section {
   background-color: var(--c-canvas-night);
   color: var(--c-on-dark);
 }
+
+/* ---- Live search dropdown (public/assets/js/search.js) ------------------ */
+.sl-live-search {
+  position: relative;
+}
+
+.sl-live-results {
+  position: absolute;
+  top: calc(100% + var(--s-xs));
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  max-height: 24rem;
+  overflow-y: auto;
+  background-color: var(--c-canvas-light);
+  color: var(--c-ink);
+  border: 1px solid var(--c-hairline-light);
+  border-radius: var(--r-lg);
+  box-shadow: var(--e-3);
+  padding: var(--s-xxs) 0;
+}
+
+.sl-live-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-md);
+  padding: var(--s-sm) var(--s-md);
+  color: var(--c-ink);
+  text-decoration: none;
+}
+
+.sl-live-item:hover,
+.sl-live-item.is-active {
+  background-color: var(--c-canvas-cream);
+  color: var(--c-ink);
+}
+
+.sl-live-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sl-live-name {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sl-live-seller,
+.sl-live-empty {
+  font-size: .8125rem;
+  color: var(--c-shade-60);
+}
+
+.sl-live-price {
+  flex-shrink: 0;
+  font-weight: 600;
+}
+
+.sl-live-all {
+  border-top: 1px solid var(--c-hairline-light);
+  justify-content: center;
+  font-weight: 600;
+}
+
+.sl-live-empty {
+  margin: 0;
+  padding: var(--s-sm) var(--s-md);
+}

@@ -13,8 +13,13 @@ declare(strict_types=1);
  * @var bool   $onDark
  */
 $onDark = $onDark ?? false;
-?>
+
+/*
+ * Hidden: the coloured development notice is commented out so it no longer
+ * renders anywhere. To bring every notice back, delete this comment wrapper.
+ *
 <p class="sl-devnote<?= $onDark ? ' sl-devnote-dark' : '' ?> tw-mb-0" role="note">
     <span class="tw-shrink-0"><?= component('icon', ['name' => 'info', 'size' => 14]) ?></span>
     <span><?= e($text ?? '') ?></span>
 </p>
+*/
